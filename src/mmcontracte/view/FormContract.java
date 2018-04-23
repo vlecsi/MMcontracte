@@ -6,12 +6,17 @@
 package mmcontracte.view;
 
 import java.awt.Color;
+import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import mmcontracte.model.Contract;
 import mmcontracte.repo.Database;
+
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import javax.swing.JComponent;
 
 /**
  *
@@ -24,15 +29,40 @@ public class FormContract extends javax.swing.JDialog  {
      *
      * @param id
      */
+    
+    
+    
     public FormContract(int id) {
         //  super(null,modal);
         this.setModal(true);
         initComponents();
         
         loadDataToForm(id);
-        //this.getContentPane().setBackground(Color.black );
+      //  this.getContentPane().setBackground(Color.white );
+	
+      
+      upcaseAll();
+	
+	
     }
 
+    private void upcaseAll(){
+	 KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+	 
+	  public boolean dispatchKeyEvent(KeyEvent e) {
+	  // This example converts all typed keys to upper case
+	 
+	  if (e.getID() == KeyEvent.KEY_TYPED) {
+	    e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
+	  }
+	  // setting discardEvent to true will not forward the key event to the focused component
+	  boolean discardEvent = false;
+	  return discardEvent;
+	    }
+	});
+	
+    }
+    
     
     private void loadDataToForm(int id) {
                 
@@ -200,7 +230,6 @@ public class FormContract extends javax.swing.JDialog  {
         setBackground(new java.awt.Color(255, 255, 204));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contract", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         jLabel1.setText("Nr. Contract:");
@@ -240,7 +269,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tip Contrcat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         bGroupTipContract.add(fPj);
@@ -276,8 +304,6 @@ public class FormContract extends javax.swing.JDialog  {
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
         jPanel5.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -302,7 +328,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Date Beneficiar"));
 
         jLabel4.setText("Denumire Societate:");
@@ -640,7 +665,6 @@ public class FormContract extends javax.swing.JDialog  {
 
         jTabbedPane1.addTab("Persoana Fizica", jPanel4);
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Factura"));
 
         jLabel19.setText("Seria:");
@@ -687,7 +711,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Obiect Contract"));
 
         jLabel20.setText("Profil:");
@@ -720,7 +743,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Achitat prin:"));
 
         jLabel23.setText("Chitanta Seria: ");
@@ -825,8 +847,6 @@ public class FormContract extends javax.swing.JDialog  {
                     .addContainerGap()))
         );
 
-        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
-
         bt_inchide.setText("Inchide");
         bt_inchide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -862,7 +882,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap())
         );
 
-        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Valoare Contract"));
 
         jLabel36.setText("RON:");
@@ -906,7 +925,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Garantie"));
 
         jLabel32.setText("Tamplarie:");
@@ -1026,11 +1044,12 @@ public class FormContract extends javax.swing.JDialog  {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34))
+                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel32)
+                        .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel34)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel35)
@@ -1066,7 +1085,6 @@ public class FormContract extends javax.swing.JDialog  {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Valoare Contract"));
 
         jLabel48.setText("RON:");
@@ -1276,12 +1294,23 @@ public class FormContract extends javax.swing.JDialog  {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void fProfilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fProfilKeyPressed
-        System.out.println(evt.getKeyChar());
+        
+	char keyChar = evt.getKeyChar();
+	 if (Character.isLowerCase(keyChar)) {
+	     System.out.println("k>"+evt.getKeyChar());
+                 evt.setKeyChar(Character.toUpperCase(keyChar));
+		// evt.se
+		// evt.setModifiers(Event.SHIFT_MASK);
+          }
 
 
     }//GEN-LAST:event_fProfilKeyPressed
 
 
+   
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGroupTipContract;
     private javax.swing.JButton bt_inchide;
