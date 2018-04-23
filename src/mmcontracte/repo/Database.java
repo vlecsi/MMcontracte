@@ -157,4 +157,10 @@ public class Database {
 	return (true);
     }
 
+    
+    public boolean deleteMyId(String tablename) {
+
+	return (true);
+    }
+
 }
