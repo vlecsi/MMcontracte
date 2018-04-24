@@ -186,7 +186,7 @@ public class FormMain extends javax.swing.JFrame {
         loadTableData();
 	bt_import.setEnabled(false);
 	bt_export.setEnabled(false);
-        this.getContentPane().setBackground(Color.black );
+      //  this.getContentPane().setBackground(Color.white );
 
     }
 
