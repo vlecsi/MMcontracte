@@ -46,7 +46,6 @@ public class Database {
 	System.out.println("Database connected!");
 	return (true);
     }
-
     public ArrayList<Contract> queryContracte(String cauta) {
 	ArrayList<Contract> contracte = null;
 	
@@ -104,7 +103,6 @@ public class Database {
 	}
 	return (contracte);
     }
-
     public Contract queryContractById(String id) {
 	
         Contract contract=new Contract();
@@ -148,16 +146,10 @@ public class Database {
         System.out.println("keres contrcat :"+contract.getBeneficiar());
 	return (contract);
     }
-
-    
-    
-    
     public boolean deleteId(String tablename) {
 
 	return (true);
     }
-
-    
     public boolean deleteMyId(String tablename) {
 
 	return (true);
