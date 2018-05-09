@@ -6,7 +6,6 @@
         <group name="Group 20180218-10:41:17">
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/FormMain.java</file>
         </group>
-        <group name="LAST-project"/>
         <group>
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/view/FormContract.java</file>
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/view/FormLogin.java</file>
@@ -16,5 +15,6 @@
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/view/NewJDialog.java</file>
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/model/Contract.java</file>
         </group>
+        <group name="LAST-project"/>
     </open-files>
 </project-private>
