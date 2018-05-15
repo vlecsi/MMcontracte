@@ -541,9 +541,37 @@ public class FormMain extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         
-         HashMap param = new HashMap();
-        param.put("name", "chamod");
-        param.put("oana", "chamodck@gmail.com");
+        HashMap param = new HashMap();
+        
+        param.put("contractDetalii", "NR. 12 din data de 11/12/2015");
+        
+        
+        String fDescriere ="Avand sediul in ONCESTI nr 460, judetul MARAMURES, inregistrat la registrul comertului sub J24/194 2008, avand cod unic de inregistrare RO 23179020, reprezentata prin domnul DRAGUS ION, avand functia de ADMINISTRATOR in calitate de FURNIZOR.";
+        param.put("furnizorNume", "SC. MARIANA-MARINEL SRL.");
+        param.put("furnizorDescriere", fDescriere );
+
+
+        String bDescriere ="Avand sediul in ONCESTI nr 460, judetul MARAMURES, inregistrat la registrul comertului sub J24/194 2008, avand cod unic de inregistrare RO 23179020, reprezentata prin domnul DRAGUS ION, avand functia de ADMINISTRATOR in calitate de FURNIZOR.";
+        param.put("beneficiarNume", "SC. MARIANA-MARINEL SRL.");
+        param.put("beneficiarDescriere", fDescriere );
+        
+        String profil,factura_seria,factura_nr,chitanta_serie,chitanta_nr,bon_de_casa,cont_bancar,trezorarie;        
+        
+                 
+//   String obiectulContractului="1. Obiectul contractului il reprezinta furnizarea de prestari servicii cu TAMPLARIE din PVC cu profil "+profil+chr(13)+
+//   "2. Contractul este valabil numai pe baza de facturi seria "+factura_seria+" nr "+factura_nr+", achitata print"+chr(13)+
+//   "   [-] Chitanta seria "+chitanta_serie+", nr "+chitanta_nr+chr(13)+
+//   "   [-] Bon de casa "+bon_de_casa+chr(13)+
+//   "   [-] Cont bancar "+cont_bancar+chr(13)+
+//   "   [-] Trezorarie"+trezorarie+chr(13)+
+//   "3. Contractul este prevazut in 2 exemplare."+chr(13)+
+//   "4. Obiectul contractului priveste confectionarea si montarea tamplariei conform dimensiunilor , deschiderilor si tipului de geam stabilite de comun acord cu beneficiarul la fata locului cu ocazia masuratorilor. "+chr(13)+
+//   "5. Executantul se obliga sa realizeze lucrarea iar beneficiarul sa plateasca pretul convenit de ambele parti la termenele si conditiile din contract."+chr(13)+
+//   "6. Lucrarea se determina in tablou de tamplarie ";
+
+                
+
+
         try {
 
             String source = "c:\\JAVA\\Rep_design\\report1.jrxml";
