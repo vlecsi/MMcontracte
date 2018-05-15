@@ -337,11 +337,6 @@ public class FormContract extends javax.swing.JDialog  {
 
         bGroupTipContract.add(fPj);
         fPj.setText("Persoana Juridica ");
-        fPj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fPjActionPerformed(evt);
-            }
-        });
 
         bGroupTipContract.add(fPf);
         fPf.setText("Persoana Fizica");
@@ -427,11 +422,6 @@ public class FormContract extends javax.swing.JDialog  {
         fPjStrada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         fPjNr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fPjNr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fPjNrActionPerformed(evt);
-            }
-        });
 
         fPjBloc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -702,32 +692,12 @@ public class FormContract extends javax.swing.JDialog  {
         fDenumireSocietate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         fDenumireSocietate2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fDenumireSocietate2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fDenumireSocietate2ActionPerformed(evt);
-            }
-        });
 
         fDenumireSocietate3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fDenumireSocietate3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fDenumireSocietate3ActionPerformed(evt);
-            }
-        });
 
         fDenumireSocietate4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fDenumireSocietate4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fDenumireSocietate4ActionPerformed(evt);
-            }
-        });
 
         fDenumireSocietate5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fDenumireSocietate5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fDenumireSocietate5ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1486,14 +1456,6 @@ public class FormContract extends javax.swing.JDialog  {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fPjActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fPjActionPerformed
-
-    private void fPjNrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fPjNrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fPjNrActionPerformed
-
     private void bt_inchideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_inchideActionPerformed
         int response = JOptionPane.showConfirmDialog(null, "Inchideti fara salvare ?", "Confirmare inchidere formular", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION){
@@ -1508,22 +1470,6 @@ public class FormContract extends javax.swing.JDialog  {
         JOptionPane.showMessageDialog(null, "Contractul cu nr #" + fNrContract.getText() + " a fost salvat !", "Informatii", JOptionPane.WARNING_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void fDenumireSocietate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fDenumireSocietate2ActionPerformed
-
-    private void fDenumireSocietate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fDenumireSocietate3ActionPerformed
-
-    private void fDenumireSocietate4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fDenumireSocietate4ActionPerformed
-
-    private void fDenumireSocietate5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fDenumireSocietate5ActionPerformed
 
 
    
