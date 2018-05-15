@@ -33,15 +33,11 @@ public class FormContract extends javax.swing.JDialog  {
     
     
     public FormContract(int id) {
-        //  super(null,modal);
+        
         this.setModal(true);
         initComponents();
-        
         loadDataToForm(id);
-      //  this.getContentPane().setBackground(Color.white );
-	
-      
-      upcaseAll();
+        upcaseAll();
 	
 	
     }
@@ -704,11 +700,6 @@ public class FormContract extends javax.swing.JDialog  {
         jLabel56.setText("Judet:");
 
         fDenumireSocietate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fDenumireSocietate1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fDenumireSocietate1ActionPerformed(evt);
-            }
-        });
 
         fDenumireSocietate2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         fDenumireSocietate2.addActionListener(new java.awt.event.ActionListener() {
@@ -962,11 +953,6 @@ public class FormContract extends javax.swing.JDialog  {
         jLabel20.setText("Profil:");
 
         fProfil.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fProfil.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                fProfilKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1195,11 +1181,6 @@ public class FormContract extends javax.swing.JDialog  {
         fCuloare.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         fFeronarie.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fFeronarie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fFeronarieActionPerformed(evt);
-            }
-        });
 
         fSuprafata.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -1527,27 +1508,6 @@ public class FormContract extends javax.swing.JDialog  {
         JOptionPane.showMessageDialog(null, "Contractul cu nr #" + fNrContract.getText() + " a fost salvat !", "Informatii", JOptionPane.WARNING_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void fProfilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fProfilKeyPressed
-        
-	char keyChar = evt.getKeyChar();
-	 if (Character.isLowerCase(keyChar)) {
-	     System.out.println("k>"+evt.getKeyChar());
-                 evt.setKeyChar(Character.toUpperCase(keyChar));
-		// evt.se
-		// evt.setModifiers(Event.SHIFT_MASK);
-          }
-
-
-    }//GEN-LAST:event_fProfilKeyPressed
-
-    private void fFeronarieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fFeronarieActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fFeronarieActionPerformed
-
-    private void fDenumireSocietate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fDenumireSocietate1ActionPerformed
 
     private void fDenumireSocietate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fDenumireSocietate2ActionPerformed
         // TODO add your handling code here:
