@@ -556,6 +556,9 @@ public class FormMain extends javax.swing.JFrame {
         param.put("beneficiarDescriere", fDescriere );
         
         String profil,factura_seria,factura_nr,chitanta_serie,chitanta_nr,bon_de_casa,cont_bancar,trezorarie;        
+
+String obiectulContractului="1. Obiectul contractului il reprezinta furnizarea de prestari servicii cu TAMPLARIE din PVC cu profil OKMAN"+"\n"+
+        "2. Contractul este valabil numai pe baza de facturi seria SN nr 01112, achitata print";
         
                  
 //   String obiectulContractului="1. Obiectul contractului il reprezinta furnizarea de prestari servicii cu TAMPLARIE din PVC cu profil "+profil+chr(13)+
@@ -570,6 +573,8 @@ public class FormMain extends javax.swing.JFrame {
 //   "6. Lucrarea se determina in tablou de tamplarie ";
 
                 
+
+param.put("obiectulContractului", obiectulContractului );
 
 
         try {
