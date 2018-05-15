@@ -11,8 +11,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -24,12 +28,25 @@ import static javax.swing.SwingConstants.RIGHT;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import mmcontracte.model.Contract;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import org.quinto.swing.table.model.IModelFieldGroup;
 import org.quinto.swing.table.model.ModelData;
 import org.quinto.swing.table.model.ModelField;
 import org.quinto.swing.table.model.ModelFieldGroup;
 import org.quinto.swing.table.model.ModelRow;
 import org.quinto.swing.table.view.JBroTable;
+
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
+
+
+
 
 /**
  *
@@ -41,6 +58,8 @@ public class FormMain extends javax.swing.JFrame {
     private ModelData mydata;
     private ModelRow[] rows;
 
+  
+    
     private void loadTableData() {
 
 	int rowIndex = 0;
@@ -322,6 +341,11 @@ public class FormMain extends javax.swing.JFrame {
 
         btTipareste.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btTipareste.setText("Tipareste Contract");
+        btTipareste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTiparesteActionPerformed(evt);
+            }
+        });
 
         bt_export.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_export.setText("Export Baza de Date");
@@ -511,6 +535,32 @@ public class FormMain extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btModificaActionPerformed
+
+    private void btTiparesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTiparesteActionPerformed
+        //Tiparire 
+
+        // TODO add your handling code here:
+        
+         HashMap param = new HashMap();
+        param.put("name", "chamod");
+        param.put("oana", "chamodck@gmail.com");
+        try {
+
+            String source = "c:\\JAVA\\Rep_design\\report1.jrxml";
+            JasperReport jc = JasperCompileManager.compileReport(source); //give your report.jrxml file path
+            JasperPrint print = JasperFillManager.fillReport(jc, param, new JREmptyDataSource());
+            //JasperViewer.viewReport(print);
+            JasperViewer.viewReport(print, false);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+            //Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
+        
+    }//GEN-LAST:event_btTiparesteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
