@@ -30,46 +30,42 @@ import javax.swing.JComponent;
  *
  * @author Levi
  */
-public class FormContract extends javax.swing.JDialog  {
+public class FormContract extends javax.swing.JDialog {
 
     /**
      * Creates new form Contract
      *
      * @param id
      */
-    
-    
-    
     public FormContract(int id) {
-        
+
         this.setModal(true);
         initComponents();
         clearForm();
         loadDataToForm(id);
         upcaseAll();
-	
-	
+
     }
 
-    private void upcaseAll(){
-	 KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-	 
-	  public boolean dispatchKeyEvent(KeyEvent e) {
-	  // This example converts all typed keys to upper case
-	 
-	  if (e.getID() == KeyEvent.KEY_TYPED) {
-	    e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
-	  }
-	  // setting discardEvent to true will not forward the key event to the focused component
-	  boolean discardEvent = false;
-	  return discardEvent;
-	    }
-	});
-	
+    private void upcaseAll() {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                // This example converts all typed keys to upper case
+
+                if (e.getID() == KeyEvent.KEY_TYPED) {
+                    e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
+                }
+                // setting discardEvent to true will not forward the key event to the focused component
+                boolean discardEvent = false;
+                return discardEvent;
+            }
+        });
+
     }
-    
-    private void clearForm(){
-        
+
+    private void clearForm() {
+
         fNrContract.setText("");
         fDataContract.setDate(new Date());
         fPj.setSelected(false);
@@ -79,12 +75,11 @@ public class FormContract extends javax.swing.JDialog  {
         fFacturaSeria.setText("");
         fFacturaNr.setText("");
         fFacturaEmisData.setText("");
-        
+
         fChitantaSeria.setText("");
         fChitantaNr.setText("");
         fTermenExecutie.setText("");
-        
-        
+
         fBonDeCasa.setText("");
         fBanca.setText("");
         fTrezorarie.setText("");
@@ -94,17 +89,16 @@ public class FormContract extends javax.swing.JDialog  {
 
         fAvansRon.setText("");
         fAvansEuro.setText("");
-        
+
         fRestRon.setText("");
         fRestEuro.setText("");
-        
-        
+
         fTamplarie.setText("");
         fCuloare.setText("");
         fFeronarie.setText("");
-        
+
         fSuprafata.setText("");
-        
+
         fSticla.setText("");
         fGeamuri.setText("");
         fUsi.setText("");
@@ -112,8 +106,7 @@ public class FormContract extends javax.swing.JDialog  {
         fPervaze.setText("");
         fPorti.setText("");
         fMontaj.setText("");
-        
-        
+
         fDenumireSocietate.setText("");
         fRegistrulComertului.setText("");
         fCui.setText("");
@@ -125,26 +118,24 @@ public class FormContract extends javax.swing.JDialog  {
         fPjScara.setText("");
         fPjEtaj.setText("");
         fPjAp.setText("");
-                        
+
         fPjReprezentantNume.setText("");
         fPjReprezentantFunctie.setText("");
         fPjReprezentantTelefon.setText("");
-        
-        
+
     }
-    
-    
+
     private void loadDataToForm(int id) {
-                
+
         Database database = new Database();
-        Contract contract=database.queryContractById(""+id);
-        
-        System.out.println("contrcat NR cerut:"+contract.getNrContract());
-          
+        Contract contract = database.queryContractById("" + id);
+
+        System.out.println("contrcat NR cerut:" + contract.getNrContract());
+
         fNrContract.setText(Integer.toString(contract.getNrContract(), 1));
-        
-        String myDate=contract.getDataContract();
-        DateFormat dformat=new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+
+        String myDate = contract.getDataContract();
+        DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         Date date = null;
         try {
             date = dformat.parse(myDate);
@@ -152,39 +143,88 @@ public class FormContract extends javax.swing.JDialog  {
             Logger.getLogger(FormContract.class.getName()).log(Level.SEVERE, null, ex);
         }
         fDataContract.setDate(date);
-        
-        if ("PERSOANA FIZICA".equals(contract.getTip_contract())) { fPf.setSelected(true); }
-        if ("PERSOANA JURIDICA".equals(contract.getTip_contract())) { fPj.setSelected(true);}     
-        
-        
-            
+
+        if ("PERSOANA FIZICA".equals(contract.getTip_contract())) {
+            fPf.setSelected(true);
+        }
+        if ("PERSOANA JURIDICA".equals(contract.getTip_contract())) {
+            fPj.setSelected(true);
+        }
+
+        //setari persoana juridica
+        //-------------------------------------
         fDenumireSocietate.setText(contract.getPj_denumire());
         fRegistrulComertului.setText(contract.getPj_j());
         fCui.setText(contract.getPj_cui());
-                
+
         fPjLocalitate.setText(contract.getPj_localitate());
         fPjJudet.setText(contract.getPj_judet());
         fPjStrada.setText(contract.getPj_str());
         fPjNr.setText(contract.getPj_nr());
-        fPjBloc.setText("");
-        fPjScara.setText("");
-        fPjEtaj.setText("");
-        fPjAp.setText("");
-                        
-        fPjReprezentantNume.setText("");
-        fPjReprezentantFunctie.setText("");
-        fPjReprezentantTelefon.setText("");
-        
-        
+        fPjBloc.setText(contract.getPj_bloc());
+        fPjScara.setText(contract.getPj_scara());
+        fPjEtaj.setText(contract.getPj_etaj());
+
+        fPjAp.setText(contract.getPj_ap());
+
+        fPjReprezentantNume.setText(contract.getPj_reprezentant());
+        fPjReprezentantFunctie.setText(contract.getPj_reprezentant_functie());
+        fPjReprezentantTelefon.setText(contract.getPj_tel());
+
+        //setari persoana fizica
+        //-------------------------------------
+        fDenumirePf.setText(contract.getPf_denumire());
+        fPfLocalitate.setText(contract.getPf_localitate());
+        fPfJudet.setText(contract.getPf_judet());
+        fPfStr.setText(contract.getPf_str());
+        fPfNr.setText(contract.getPf_nr());
+        fPfBloc.setText(contract.getPf_bloc());
+        fPfScara.setText(contract.getPf_scara());
+        fPfEtaj.setText(contract.getPf_etaj());
+        fPfAp.setText(contract.getPf_ap());
+
+        fPfCiSeria.setText(contract.getPf_serie_buletin());
+        fPfCiNr.setText(contract.getPf_nr_buletin());
+        fPfCnp.setText(contract.getPf_cnp());
+        fPfTel.setText(contract.getPf_tel());
+
+        //setari Obiect contract
+        fProfil.setText(contract.getProfil());
+
+        //setari factura
+        fFacturaSeria.setText(contract.getFactura_seria());
+        fFacturaNr.setText(contract.getFactura_nr());
+        fFacturaEmisData.setText(contract.getFactura_emis());
+
+        //setari achitat prin
+        fChitantaSeria fChitantaNr
+        fBonDeCasa fBanca
+        fTrezorarie 
+
+         //setari termen de executie
+                fTermenExecutie 
+         //setari valoare plata
+        fValRon fValEuro 
+//setari avans plata
+        fAvansRon fAvansEuro 
+// setari rest de plata 
+        fRestRon fRestEuro 
+//setari garantie
+        fTamplarie fCuloare
+        fFeronarie fSuprafata
+        fSticla fGeamuri
+        fUsi fPlasaInsecte
+        fPervaze fPorti
+                                               
+                
+                fMontaj
+                
         
         
         
         
     }
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -248,28 +288,28 @@ public class FormContract extends javax.swing.JDialog  {
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
-        fPjBloc1 = new javax.swing.JTextField();
+        fPfBloc = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
-        fPjScara1 = new javax.swing.JTextField();
+        fPfScara = new javax.swing.JTextField();
         jLabel54 = new javax.swing.JLabel();
-        fPjEtaj1 = new javax.swing.JTextField();
+        fPfEtaj = new javax.swing.JTextField();
         jLabel55 = new javax.swing.JLabel();
-        fPjAp1 = new javax.swing.JTextField();
+        fPfAp = new javax.swing.JTextField();
         jLabel56 = new javax.swing.JLabel();
-        fDenumireSocietate1 = new javax.swing.JTextField();
-        fDenumireSocietate2 = new javax.swing.JTextField();
-        fDenumireSocietate3 = new javax.swing.JTextField();
-        fDenumireSocietate4 = new javax.swing.JTextField();
-        fDenumireSocietate5 = new javax.swing.JTextField();
+        fDenumirePf = new javax.swing.JTextField();
+        fPfLocalitate = new javax.swing.JTextField();
+        fPfJudet = new javax.swing.JTextField();
+        fPfNr = new javax.swing.JTextField();
+        fPfStr = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
-        fTamplarie1 = new javax.swing.JTextField();
-        fTamplarie2 = new javax.swing.JTextField();
-        fTamplarie3 = new javax.swing.JTextField();
-        fTamplarie4 = new javax.swing.JTextField();
+        fPfCnp = new javax.swing.JTextField();
+        fPfCiSeria = new javax.swing.JTextField();
+        fPfCiNr = new javax.swing.JTextField();
+        fPfTel = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -487,53 +527,53 @@ public class FormContract extends javax.swing.JDialog  {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fRegistrulComertului, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fPjJudet, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fPjLocalitate, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fCui, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fPjJudet, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fPjLocalitate, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(fPjBloc, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fPjScara, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fPjEtaj, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fPjAp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fPjStrada)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fPjNr, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fDenumireSocietate))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fPjBloc, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fPjScara, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fPjEtaj, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel13)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fPjAp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fPjStrada)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fPjNr, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(fRegistrulComertului)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fCui, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))
+                            .addComponent(fDenumireSocietate))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -721,31 +761,31 @@ public class FormContract extends javax.swing.JDialog  {
 
         jLabel52.setText("Bloc.");
 
-        fPjBloc1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfBloc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel53.setText("Scara");
 
-        fPjScara1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfScara.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel54.setText("Etaj");
 
-        fPjEtaj1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfEtaj.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel55.setText("Ap.");
 
-        fPjAp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfAp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel56.setText("Judet:");
 
-        fDenumireSocietate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fDenumirePf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fDenumireSocietate2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfLocalitate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fDenumireSocietate3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfJudet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fDenumireSocietate4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfNr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fDenumireSocietate5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfStr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -768,28 +808,28 @@ public class FormContract extends javax.swing.JDialog  {
                                     .addGroup(jPanel14Layout.createSequentialGroup()
                                         .addComponent(jLabel52)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(fPjBloc1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(fPfBloc, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel53)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fPjScara1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(fPfScara, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(15, 15, 15)
                                         .addComponent(jLabel54)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(fPjEtaj1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(fDenumireSocietate5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(fPfEtaj, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fPfStr, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel51)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fDenumireSocietate4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(fDenumireSocietate3)
-                            .addComponent(fDenumireSocietate2)
-                            .addComponent(fDenumireSocietate1)))
+                                .addComponent(fPfNr, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fPfJudet)
+                            .addComponent(fPfLocalitate)
+                            .addComponent(fDenumirePf)))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel55)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fPjAp1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fPfAp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -797,30 +837,30 @@ public class FormContract extends javax.swing.JDialog  {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fDenumireSocietate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fDenumirePf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
-                    .addComponent(fDenumireSocietate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fPfLocalitate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel56)
-                    .addComponent(fDenumireSocietate3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fPfJudet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fDenumireSocietate4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel51)
-                    .addComponent(fDenumireSocietate5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfStr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel50))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fPjEtaj1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfEtaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel55)
-                    .addComponent(fPjAp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fPjScara1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfAp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfScara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel53)
-                    .addComponent(fPjBloc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfBloc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel52)
                     .addComponent(jLabel54))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -836,13 +876,13 @@ public class FormContract extends javax.swing.JDialog  {
 
         jLabel66.setText("Nr CI:");
 
-        fTamplarie1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfCnp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fTamplarie2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfCiSeria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fTamplarie3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfCiNr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        fTamplarie4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fPfTel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -859,14 +899,14 @@ public class FormContract extends javax.swing.JDialog  {
                             .addComponent(jLabel65, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fTamplarie4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fTamplarie1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfTel, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfCnp, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(fTamplarie2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fPfCiSeria, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel66)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fTamplarie3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fPfCiNr, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
@@ -878,17 +918,17 @@ public class FormContract extends javax.swing.JDialog  {
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel57)
                             .addComponent(jLabel66)
-                            .addComponent(fTamplarie2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(fPfCiSeria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(fTamplarie3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fPfCiNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fTamplarie1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfCnp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel58))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fTamplarie4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fPfTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel65))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
@@ -1506,11 +1546,11 @@ public class FormContract extends javax.swing.JDialog  {
 
     private void bt_inchideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_inchideActionPerformed
         int response = JOptionPane.showConfirmDialog(null, "Inchideti fara salvare ?", "Confirmare inchidere formular", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION){
+        if (response == JOptionPane.YES_OPTION) {
             this.dispose();
         }
     }//GEN-LAST:event_bt_inchideActionPerformed
-    
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // salvare in baza de date !  
@@ -1520,10 +1560,6 @@ public class FormContract extends javax.swing.JDialog  {
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
-   
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGroupTipContract;
     private javax.swing.JButton bt_inchide;
@@ -1536,12 +1572,8 @@ public class FormContract extends javax.swing.JDialog  {
     private javax.swing.JTextField fCui;
     private javax.swing.JTextField fCuloare;
     private com.toedter.calendar.JDateChooser fDataContract;
+    private javax.swing.JTextField fDenumirePf;
     private javax.swing.JTextField fDenumireSocietate;
-    private javax.swing.JTextField fDenumireSocietate1;
-    private javax.swing.JTextField fDenumireSocietate2;
-    private javax.swing.JTextField fDenumireSocietate3;
-    private javax.swing.JTextField fDenumireSocietate4;
-    private javax.swing.JTextField fDenumireSocietate5;
     private javax.swing.JTextField fFacturaEmisData;
     private javax.swing.JTextField fFacturaNr;
     private javax.swing.JTextField fFacturaSeria;
@@ -1551,13 +1583,22 @@ public class FormContract extends javax.swing.JDialog  {
     private javax.swing.JTextField fNrContract;
     private javax.swing.JTextField fPervaze;
     private javax.swing.JRadioButton fPf;
+    private javax.swing.JTextField fPfAp;
+    private javax.swing.JTextField fPfBloc;
+    private javax.swing.JTextField fPfCiNr;
+    private javax.swing.JTextField fPfCiSeria;
+    private javax.swing.JTextField fPfCnp;
+    private javax.swing.JTextField fPfEtaj;
+    private javax.swing.JTextField fPfJudet;
+    private javax.swing.JTextField fPfLocalitate;
+    private javax.swing.JTextField fPfNr;
+    private javax.swing.JTextField fPfScara;
+    private javax.swing.JTextField fPfStr;
+    private javax.swing.JTextField fPfTel;
     private javax.swing.JRadioButton fPj;
     private javax.swing.JTextField fPjAp;
-    private javax.swing.JTextField fPjAp1;
     private javax.swing.JTextField fPjBloc;
-    private javax.swing.JTextField fPjBloc1;
     private javax.swing.JTextField fPjEtaj;
-    private javax.swing.JTextField fPjEtaj1;
     private javax.swing.JTextField fPjJudet;
     private javax.swing.JTextField fPjLocalitate;
     private javax.swing.JTextField fPjNr;
@@ -1565,7 +1606,6 @@ public class FormContract extends javax.swing.JDialog  {
     private javax.swing.JTextField fPjReprezentantNume;
     private javax.swing.JTextField fPjReprezentantTelefon;
     private javax.swing.JTextField fPjScara;
-    private javax.swing.JTextField fPjScara1;
     private javax.swing.JTextField fPjStrada;
     private javax.swing.JTextField fPlasaInsecte;
     private javax.swing.JTextField fPorti;
@@ -1576,10 +1616,6 @@ public class FormContract extends javax.swing.JDialog  {
     private javax.swing.JTextField fSticla;
     private javax.swing.JTextField fSuprafata;
     private javax.swing.JTextField fTamplarie;
-    private javax.swing.JTextField fTamplarie1;
-    private javax.swing.JTextField fTamplarie2;
-    private javax.swing.JTextField fTamplarie3;
-    private javax.swing.JTextField fTamplarie4;
     private javax.swing.JTextField fTermenExecutie;
     private javax.swing.JTextField fTrezorarie;
     private javax.swing.JTextField fUsi;
@@ -1670,5 +1706,4 @@ public class FormContract extends javax.swing.JDialog  {
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 
-    
 }

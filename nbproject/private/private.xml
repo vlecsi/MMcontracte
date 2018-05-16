@@ -8,7 +8,10 @@
         </group>
         <group name="LAST-project"/>
         <group>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/repo/Database.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/Contract.java</file>
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormMain.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormContract.java</file>
         </group>
     </open-files>
 </project-private>
