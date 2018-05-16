@@ -16,6 +16,14 @@ import mmcontracte.repo.Database;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import static java.lang.String.format;
+import static java.lang.String.format;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 /**
@@ -36,6 +44,7 @@ public class FormContract extends javax.swing.JDialog  {
         
         this.setModal(true);
         initComponents();
+        clearForm();
         loadDataToForm(id);
         upcaseAll();
 	
@@ -59,22 +68,13 @@ public class FormContract extends javax.swing.JDialog  {
 	
     }
     
-    
-    private void loadDataToForm(int id) {
-                
-        Database database = new Database();
-        Contract contract=database.queryContractById(""+id);
+    private void clearForm(){
         
-        System.out.println(contract.getNrContract());
-          
-        
-        fNrContract.setText(""+contract.getNrContract());
+        fNrContract.setText("");
         fDataContract.setDate(new Date());
-        //fPj.isSelected();
-        //fPj.setSelected(true);
-        fPf.setSelected(true);
-        
-        
+        fPj.setSelected(false);
+        fPf.setSelected(false);
+
         fProfil.setText("");
         fFacturaSeria.setText("");
         fFacturaNr.setText("");
@@ -129,6 +129,54 @@ public class FormContract extends javax.swing.JDialog  {
         fPjReprezentantNume.setText("");
         fPjReprezentantFunctie.setText("");
         fPjReprezentantTelefon.setText("");
+        
+        
+    }
+    
+    
+    private void loadDataToForm(int id) {
+                
+        Database database = new Database();
+        Contract contract=database.queryContractById(""+id);
+        
+        System.out.println("contrcat NR cerut:"+contract.getNrContract());
+          
+        fNrContract.setText(Integer.toString(contract.getNrContract(), 1));
+        
+        String myDate=contract.getDataContract();
+        DateFormat dformat=new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = dformat.parse(myDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(FormContract.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        fDataContract.setDate(date);
+        
+        if ("PERSOANA FIZICA".equals(contract.getTip_contract())) { fPf.setSelected(true); }
+        if ("PERSOANA JURIDICA".equals(contract.getTip_contract())) { fPj.setSelected(true);}     
+        
+        
+            
+        fDenumireSocietate.setText(contract.getPj_denumire());
+        fRegistrulComertului.setText(contract.getPj_j());
+        fCui.setText(contract.getPj_cui());
+                
+        fPjLocalitate.setText(contract.getPj_localitate());
+        fPjJudet.setText(contract.getPj_judet());
+        fPjStrada.setText(contract.getPj_str());
+        fPjNr.setText(contract.getPj_nr());
+        fPjBloc.setText("");
+        fPjScara.setText("");
+        fPjEtaj.setText("");
+        fPjAp.setText("");
+                        
+        fPjReprezentantNume.setText("");
+        fPjReprezentantFunctie.setText("");
+        fPjReprezentantTelefon.setText("");
+        
+        
+        
         
         
         
