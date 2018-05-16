@@ -131,6 +131,8 @@ public class Database {
                 
                 if (beneficiar ==null) { beneficiar="";};
 		contract.setBeneficiar(beneficiar);
+                contract.setPj_denumire(rs.getString("pj_denumire"));
+                contract.setPf_denumire(rs.getString("pf_denumire"));
 		contract.setValoareRon(rs.getFloat("valoare_ron"));
 		contract.setValoareEur(rs.getFloat("valoare_euro"));
 		contract.setAvansRon(rs.getFloat("avans_ron"));
