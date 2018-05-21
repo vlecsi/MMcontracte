@@ -29,6 +29,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import mmcontracte.model.Contract;
 import net.sf.jasperreports.engine.JREmptyDataSource;
+
+
 import org.quinto.swing.table.model.IModelFieldGroup;
 import org.quinto.swing.table.model.ModelData;
 import org.quinto.swing.table.model.ModelField;
@@ -498,10 +500,6 @@ public class FormMain extends javax.swing.JFrame {
     private void btContractNouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContractNouActionPerformed
 	int id = 0;
 	FormContract fc = new FormContract(id);
-	
-	//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	//fc.setSize(d.width-200, d.height-200);//<---take 30 off the height
-	//fc.setLocationRelativeTo(null);
 	fc.pack();
 	fc.setVisible(true);
 
@@ -578,8 +576,8 @@ param.put("obiectulContractului", obiectulContractului );
 
 
         try {
-
-            String source = "c:\\JAVA\\Rep_design\\report1.jrxml";
+                   
+            String source = System.getProperty("user.dir")+"\\report\\report1.jrxml";
             JasperReport jc = JasperCompileManager.compileReport(source); //give your report.jrxml file path
             JasperPrint print = JasperFillManager.fillReport(jc, param, new JREmptyDataSource());
             //JasperViewer.viewReport(print);

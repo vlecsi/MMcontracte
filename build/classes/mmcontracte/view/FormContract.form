@@ -234,9 +234,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Persoana Juridica "/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fPjActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="fPf">
           <Properties>
@@ -561,9 +558,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fPjNrActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fPjBloc">
                   <Properties>
@@ -1014,9 +1008,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fDenumireSocietate1ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fDenumireSocietate2">
                   <Properties>
@@ -1024,9 +1015,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fDenumireSocietate2ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fDenumireSocietate3">
                   <Properties>
@@ -1034,9 +1022,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fDenumireSocietate3ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fDenumireSocietate4">
                   <Properties>
@@ -1044,9 +1029,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fDenumireSocietate4ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="fDenumireSocietate5">
                   <Properties>
@@ -1054,9 +1036,6 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fDenumireSocietate5ActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1317,9 +1296,6 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fProfilKeyPressed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -1843,9 +1819,6 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fFeronarieActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="fSuprafata">
           <Properties>

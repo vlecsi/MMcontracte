@@ -31,7 +31,9 @@ public class MMContracte {
 //	} catch (UnsupportedLookAndFeelException ex) {
 //	    Logger.getLogger(MMContracte.class.getName()).log(Level.SEVERE, null, ex);
 //	}
-	FormLogin flogin = new FormLogin(null, false);
+
+System.out.println("Working Directory = " + System.getProperty("user.dir"));
+FormLogin flogin = new FormLogin(null, false);
 	flogin.setVisible(true);
 
     }
