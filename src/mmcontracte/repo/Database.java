@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +83,16 @@ public class Database {
                 if (beneficiar == null) {
                     beneficiar = "";
                 };
-                contract.setBeneficiar(beneficiar);              
+                contract.setBeneficiar(beneficiar);
+
+                //setari valoare plata
+                contract.setValoareRon(rs.getFloat("valoare_ron"));
+                contract.setValoareEur(rs.getFloat("valoare_euro"));
+
+                //setari avans plata
+                contract.setAvansRon(rs.getFloat("avans_ron"));
+                contract.setAvansEur(rs.getFloat("avans_euro"));
+
                 contracte.add(contract);
 
             }
@@ -124,10 +134,9 @@ public class Database {
 
                 if (beneficiar == null) {
                     beneficiar = "";
-                };
+                }
                 contract.setBeneficiar(beneficiar);
 
-                
                 //setari persoana juridica
                 //-------------------------------------
                 contract.setPj_denumire(rs.getString("pj_denumire"));
@@ -164,17 +173,49 @@ public class Database {
                 contract.setPf_nr_buletin(rs.getString("pf_nr_buletin"));
                 contract.setPf_cnp(rs.getString("pf_cnp"));
                 contract.setPf_tel(rs.getString("pf_tel"));
-                
-                //setari 
 
+                //setari Obiect contract
+                contract.setProfil(rs.getString("profil"));
+
+                //setari factura
+                contract.setFactura_seria(rs.getString("factura_seria"));
+                contract.setFactura_nr(rs.getString("factura_nr"));
+                contract.setFactura_emis(rs.getString("factura_emis"));
+
+                //setari achitat prin
+                contract.setChitanta_serie(rs.getString("chitanta_serie"));
+                contract.setChitanta_nr(rs.getString("chitanta_nr"));
+                contract.setBon_de_casa(rs.getString("bon_de_casa"));
+                contract.setBanca(rs.getString("banca"));
+                contract.setTrezorarie(rs.getString("trezorarie"));
+
+                //setari termen de executie
+                contract.setTermen_de_executie(rs.getString("termen_de_executie"));
+
+                //setari valoare plata
                 contract.setValoareRon(rs.getFloat("valoare_ron"));
                 contract.setValoareEur(rs.getFloat("valoare_euro"));
-                contract.setAvansRon(rs.getFloat("avans_ron"));
-               contract.setAvansEur(rs.getFloat("avans_euro"));
 
-                
-                
-                
+                //setari avans plata
+                contract.setAvansRon(rs.getFloat("avans_ron"));
+                contract.setAvansEur(rs.getFloat("avans_euro"));
+
+                // setari rest de plata  Autocalulated !!!
+                //contract.setRestRon(rs.getFloat("rest_ron"));
+                //contract.setRestEur(rs.getFloat("rest_euro"));
+                //setari garantie
+                contract.setTamplarie(rs.getString("tamplarie"));
+                contract.setCuloare(rs.getString("culoare"));
+                contract.setFeronarie(rs.getString("feronarie"));
+                contract.setSuprafata(rs.getString("suprafata"));
+                contract.setSticla(rs.getString("sticla"));
+                contract.setGeamuri(rs.getString("geamuri"));
+                contract.setUsi(rs.getString("usi"));
+                contract.setPlasa_insecte(rs.getString("plasa_insecte"));
+                contract.setPervaze(rs.getString("pervaze"));
+                contract.setPorti_de_garaj(rs.getString("porti_de_garaj"));
+                contract.setMontaj(rs.getString("montaj"));
+
             }
             rs.close();
             stmt.close();
@@ -187,14 +228,36 @@ public class Database {
         return (contract);
     }
 
-    public boolean deleteId(String tablename) {
+    public boolean deleteContractById(long id) {
 
         return (true);
     }
 
-    public boolean deleteMyId(String tablename) {
+    public boolean updateContractById(long id, Contract contract) {
+
+        //Contract contract = new Contract();
+      //  final String SQL;
+      //  SQL = "update clienti where id=1";
+
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement ps = connection.prepareStatement("UPDATE clienti SET pj_denumire = ? WHERE id = ?");
+            ps.setString(1, contract.getPj_denumire());
+            ps.setLong(2, id);
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return(false);
+        }
 
         return (true);
+    }
+
+    public long insertContract(Contract contract) {
+
+        return (10);
     }
 
 }
