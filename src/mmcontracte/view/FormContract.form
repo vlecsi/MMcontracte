@@ -351,59 +351,60 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="fRegistrulComertului" min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="fCui" min="-2" pref="167" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="fPjJudet" min="-2" pref="338" max="-2" attributes="0"/>
+                                      <Component id="fPjLocalitate" min="-2" pref="338" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="fPjJudet" min="-2" pref="338" max="-2" attributes="0"/>
-                                          <Component id="fPjLocalitate" min="-2" pref="338" max="-2" attributes="0"/>
-                                      </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fPjBloc" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fPjScara" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fPjEtaj" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fPjAp" min="-2" pref="53" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fPjStrada" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" pref="19" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fPjNr" min="-2" pref="51" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="fRegistrulComertului" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="fCui" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                      </Group>
                                       <Component id="fDenumireSocietate" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="fPjBloc" min="-2" pref="36" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="fPjScara" min="-2" pref="38" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="fPjEtaj" min="-2" pref="41" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="fPjAp" min="-2" pref="53" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="fPjStrada" max="32767" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel9" min="-2" pref="19" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="fPjNr" min="-2" pref="51" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -854,33 +855,33 @@
                                               <Group type="102" attributes="0">
                                                   <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="fPjBloc1" min="-2" pref="36" max="-2" attributes="0"/>
+                                                  <Component id="fPfBloc" min="-2" pref="36" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="fPjScara1" min="-2" pref="38" max="-2" attributes="0"/>
+                                                  <Component id="fPfScara" min="-2" pref="38" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                                   <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="fPjEtaj1" min="-2" pref="41" max="-2" attributes="0"/>
+                                                  <Component id="fPfEtaj" min="-2" pref="41" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="fDenumireSocietate5" min="-2" pref="241" max="-2" attributes="0"/>
+                                              <Component id="fPfStr" min="-2" pref="241" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="fDenumireSocietate4" min="-2" pref="55" max="-2" attributes="0"/>
+                                          <Component id="fPfNr" min="-2" pref="55" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="fDenumireSocietate3" max="32767" attributes="0"/>
-                                      <Component id="fDenumireSocietate2" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="fDenumireSocietate1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fPfJudet" max="32767" attributes="0"/>
+                                      <Component id="fPfLocalitate" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fDenumirePf" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="fPjAp1" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="fPfAp" min="-2" pref="53" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -892,34 +893,34 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fDenumireSocietate1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fDenumirePf" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fDenumireSocietate2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfLocalitate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fDenumireSocietate3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfJudet" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fDenumireSocietate4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfNr" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fDenumireSocietate5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfStr" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fPjEtaj1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfEtaj" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fPjAp1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fPjScara1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfAp" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfScara" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fPjBloc1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfBloc" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -954,7 +955,7 @@
                     <Property name="text" type="java.lang.String" value="Bloc."/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fPjBloc1">
+                <Component class="javax.swing.JTextField" name="fPfBloc">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -966,7 +967,7 @@
                     <Property name="text" type="java.lang.String" value="Scara"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fPjScara1">
+                <Component class="javax.swing.JTextField" name="fPfScara">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -978,7 +979,7 @@
                     <Property name="text" type="java.lang.String" value="Etaj"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fPjEtaj1">
+                <Component class="javax.swing.JTextField" name="fPfEtaj">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -990,7 +991,7 @@
                     <Property name="text" type="java.lang.String" value="Ap."/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fPjAp1">
+                <Component class="javax.swing.JTextField" name="fPfAp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -1002,35 +1003,35 @@
                     <Property name="text" type="java.lang.String" value="Judet:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fDenumireSocietate1">
+                <Component class="javax.swing.JTextField" name="fDenumirePf">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fDenumireSocietate2">
+                <Component class="javax.swing.JTextField" name="fPfLocalitate">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fDenumireSocietate3">
+                <Component class="javax.swing.JTextField" name="fPfJudet">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fDenumireSocietate4">
+                <Component class="javax.swing.JTextField" name="fPfNr">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fDenumireSocietate5">
+                <Component class="javax.swing.JTextField" name="fPfStr">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -1065,14 +1066,14 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="fTamplarie4" min="-2" pref="318" max="-2" attributes="0"/>
-                              <Component id="fTamplarie1" min="-2" pref="318" max="-2" attributes="0"/>
+                              <Component id="fPfTel" min="-2" pref="318" max="-2" attributes="0"/>
+                              <Component id="fPfCnp" min="-2" pref="318" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="fTamplarie2" min="-2" pref="67" max="-2" attributes="0"/>
+                                  <Component id="fPfCiSeria" min="-2" pref="67" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="fTamplarie3" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="fPfCiNr" min="-2" pref="165" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="55" max="32767" attributes="0"/>
@@ -1088,22 +1089,22 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fTamplarie2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fPfCiSeria" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fTamplarie3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fPfCiNr" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fTamplarie1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfCnp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fTamplarie4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fPfTel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel65" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="73" max="32767" attributes="0"/>
@@ -1132,28 +1133,28 @@
                     <Property name="text" type="java.lang.String" value="Nr CI:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fTamplarie1">
+                <Component class="javax.swing.JTextField" name="fPfCnp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fTamplarie2">
+                <Component class="javax.swing.JTextField" name="fPfCiSeria">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fTamplarie3">
+                <Component class="javax.swing.JTextField" name="fPfCiNr">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="fTamplarie4">
+                <Component class="javax.swing.JTextField" name="fPfTel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
@@ -1489,7 +1490,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="165" max="-2" attributes="0"/>
+                  <Component id="jSalvare" min="-2" pref="165" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="bt_inchide" min="-2" pref="152" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -1502,7 +1503,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bt_inchide" max="32767" attributes="0"/>
-                      <Component id="jButton2" max="32767" attributes="0"/>
+                      <Component id="jSalvare" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1518,12 +1519,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_inchideActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="jSalvare">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salvare date"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSalvareActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

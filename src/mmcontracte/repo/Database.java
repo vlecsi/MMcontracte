@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,134 +28,236 @@ public class Database {
     private Connection connection = null;
 
     public boolean testConnection() {
-	System.out.println("Loading driver...");
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	} catch (ClassNotFoundException ex) {
-	    System.out.println("Nu gasessc CLASA com.mysql.jdbc.Driver");
-	    return (false);
-	}
-	System.out.println("Driver loaded!");
-	System.out.println("Connecting database...");
-	try {
-	    connection = DriverManager.getConnection(url, username, password);
-	    connection.close();
-	} catch (SQLException ex) {
-	    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-	    return (false);
-	}
-	System.out.println("Database connected!");
-	return (true);
+        System.out.println("Loading driver...");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Nu gasessc CLASA com.mysql.jdbc.Driver");
+            return (false);
+        }
+        System.out.println("Driver loaded!");
+        System.out.println("Connecting database...");
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return (false);
+        }
+        System.out.println("Database connected!");
+        return (true);
     }
+
     public ArrayList<Contract> queryContracte(String cauta) {
-	ArrayList<Contract> contracte = null;
-	
-	final String SQL;
-	
-	System.out.println("Cauta:"+cauta);
-	
-        if (cauta!=null){
-	    SQL="select * from clienti where pj_denumire LIKE '%"+cauta+"%' or pf_denumire LIKE '%"+cauta+"%' order by data_contract desc";
-	}else{ 
-	    SQL="select * from clienti order by data_contract desc";
-	}
-	
-	try {
-	    connection = DriverManager.getConnection(url, username, password);
-	    Statement stmt = connection.createStatement();
-	    ResultSet rs = stmt.executeQuery(SQL);
-	    contracte = new ArrayList();
-	    while (rs.next()) {
-		Contract contract=new Contract();
-		contract.setId(rs.getInt("id"));
-		contract.setNrContract(rs.getInt("nr_contract"));
-		contract.setDataContract(rs.getString("data_contract"));
-		contract.setTip_contract(rs.getString("tip_contract"));
-		
-		String beneficiar=null;
-		if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))){
-		    beneficiar=rs.getString("pf_denumire");
-                    
-	        }
-		if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))){
-		    beneficiar=rs.getString("pj_denumire");
-	        }
-                
-                if (beneficiar ==null) { beneficiar="";};
-		contract.setBeneficiar(beneficiar);
-		contract.setValoareRon(rs.getFloat("valoare_ron"));
-		contract.setValoareEur(rs.getFloat("valoare_euro"));
-		contract.setAvansRon(rs.getFloat("avans_ron"));
-		contract.setAvansEur(rs.getFloat("avans_euro"));
+        ArrayList<Contract> contracte = null;
 
-	
-		
-			
-			
-		contracte.add(contract);
-		
-	    }
-	    rs.close();
-	    stmt.close();
-	    connection.close();
-	} catch (SQLException ex) {
-	    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-	    System.out.println("SQl HIBA!");
-	}
-	return (contracte);
-    }
-    public Contract queryContractById(String id) {
-	
-        Contract contract=new Contract();
-	final String SQL;
-        SQL="select * from clienti where id="+id+" order by data_contract desc";
-	
-	try {
-	    connection = DriverManager.getConnection(url, username, password);
-	    Statement stmt = connection.createStatement();
-	    ResultSet rs = stmt.executeQuery(SQL);
-	    while (rs.next()) {
-		System.out.println("keres contrcat :>  ");
+        final String SQL;
+
+        System.out.println("Cauta:" + cauta);
+
+        if (cauta != null) {
+            SQL = "select * from clienti where pj_denumire LIKE '%" + cauta + "%' or pf_denumire LIKE '%" + cauta + "%' order by data_contract desc";
+        } else {
+            SQL = "select * from clienti order by data_contract desc";
+        }
+
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            contracte = new ArrayList();
+            while (rs.next()) {
+                Contract contract = new Contract();
                 contract.setId(rs.getInt("id"));
-		contract.setNrContract(rs.getInt("nr_contract"));
-		contract.setDataContract(rs.getString("data_contract"));
-		contract.setTip_contract(rs.getString("tip_contract"));
-		
-		String beneficiar=null;
-		if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))){
-		    beneficiar=rs.getString("pf_denumire");
-                    
-	        }
-		if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))){
-		    beneficiar=rs.getString("pj_denumire");
-	        }
-                
-                if (beneficiar ==null) { beneficiar="";};
-		contract.setBeneficiar(beneficiar);
+                contract.setNrContract(rs.getInt("nr_contract"));
+                contract.setDataContract(rs.getString("data_contract"));
+                contract.setTip_contract(rs.getString("tip_contract"));
+
+                String beneficiar = null;
+                if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pf_denumire");
+                }
+                if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pj_denumire");
+                }
+                if (beneficiar == null) {
+                    beneficiar = "";
+                };
+                contract.setBeneficiar(beneficiar);
+
+                //setari valoare plata
+                contract.setValoareRon(rs.getFloat("valoare_ron"));
+                contract.setValoareEur(rs.getFloat("valoare_euro"));
+
+                //setari avans plata
+                contract.setAvansRon(rs.getFloat("avans_ron"));
+                contract.setAvansEur(rs.getFloat("avans_euro"));
+
+                contracte.add(contract);
+
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQl HIBA!");
+        }
+        return (contracte);
+    }
+
+    public Contract queryContractById(String id) {
+
+        Contract contract = new Contract();
+        final String SQL;
+        SQL = "select * from clienti where id=" + id + " order by data_contract desc";
+
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                System.out.println("keres contrcat :>  ");
+                contract.setId(rs.getInt("id"));
+                contract.setNrContract(rs.getInt("nr_contract"));
+                contract.setDataContract(rs.getString("data_contract"));
+                contract.setTip_contract(rs.getString("tip_contract"));
+
+                String beneficiar = null;
+                if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pf_denumire");
+
+                }
+                if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pj_denumire");
+                }
+
+                if (beneficiar == null) {
+                    beneficiar = "";
+                }
+                contract.setBeneficiar(beneficiar);
+
+                //setari persoana juridica
+                //-------------------------------------
                 contract.setPj_denumire(rs.getString("pj_denumire"));
+                contract.setPj_j(rs.getString("pj_j"));
+                contract.setPj_cui(rs.getString("pj_cui"));
+
+                contract.setPj_localitate(rs.getString("pj_localitate"));
+                contract.setPj_judet(rs.getString("pj_judet"));
+                contract.setPj_str(rs.getString("pj_str"));
+                contract.setPj_nr(rs.getString("pj_nr"));
+                contract.setPj_bloc(rs.getString("pj_bloc"));
+                contract.setPj_scara(rs.getString("pj_scara"));
+                contract.setPj_etaj(rs.getString("pj_etaj"));
+
+                contract.setPj_ap(rs.getString("pj_ap"));
+
+                contract.setPj_reprezentant(rs.getString("pj_reprezentant"));
+                contract.setPj_reprezentant_functie(rs.getString("pj_reprezentant_functie"));
+                contract.setPj_tel(rs.getString("pj_tel"));
+
+                //setari persoana fizica
+                //-------------------------------------
                 contract.setPf_denumire(rs.getString("pf_denumire"));
-		contract.setValoareRon(rs.getFloat("valoare_ron"));
-		contract.setValoareEur(rs.getFloat("valoare_euro"));
-		contract.setAvansRon(rs.getFloat("avans_ron"));
-		contract.setAvansEur(rs.getFloat("avans_euro"));
-	    }
-	    rs.close();
-	    stmt.close();
-	    connection.close();
-	} catch (SQLException ex) {
-	    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-	    System.out.println("SQl HIBA!");
-	}
-        System.out.println("keres contrcat :"+contract.getBeneficiar());
-	return (contract);
-    }
-    public boolean deleteId(String tablename) {
+                contract.setPf_localitate(rs.getString("pf_localitate"));
+                contract.setPf_judet(rs.getString("pf_judet"));
+                contract.setPf_str(rs.getString("pf_str"));
+                contract.setPf_nr(rs.getString("pf_nr"));
+                contract.setPf_bloc(rs.getString("pf_bloc"));
+                contract.setPf_scara(rs.getString("pf_scara"));
+                contract.setPf_etaj(rs.getString("pf_etaj"));
+                contract.setPf_ap(rs.getString("pf_ap"));
 
-	return (true);
-    }
-    public boolean deleteMyId(String tablename) {
+                contract.setPf_serie_buletin(rs.getString("pf_serie_buletin"));
+                contract.setPf_nr_buletin(rs.getString("pf_nr_buletin"));
+                contract.setPf_cnp(rs.getString("pf_cnp"));
+                contract.setPf_tel(rs.getString("pf_tel"));
 
-	return (true);
+                //setari Obiect contract
+                contract.setProfil(rs.getString("profil"));
+
+                //setari factura
+                contract.setFactura_seria(rs.getString("factura_seria"));
+                contract.setFactura_nr(rs.getString("factura_nr"));
+                contract.setFactura_emis(rs.getString("factura_emis"));
+
+                //setari achitat prin
+                contract.setChitanta_serie(rs.getString("chitanta_serie"));
+                contract.setChitanta_nr(rs.getString("chitanta_nr"));
+                contract.setBon_de_casa(rs.getString("bon_de_casa"));
+                contract.setBanca(rs.getString("banca"));
+                contract.setTrezorarie(rs.getString("trezorarie"));
+
+                //setari termen de executie
+                contract.setTermen_de_executie(rs.getString("termen_de_executie"));
+
+                //setari valoare plata
+                contract.setValoareRon(rs.getFloat("valoare_ron"));
+                contract.setValoareEur(rs.getFloat("valoare_euro"));
+
+                //setari avans plata
+                contract.setAvansRon(rs.getFloat("avans_ron"));
+                contract.setAvansEur(rs.getFloat("avans_euro"));
+
+                // setari rest de plata  Autocalulated !!!
+                //contract.setRestRon(rs.getFloat("rest_ron"));
+                //contract.setRestEur(rs.getFloat("rest_euro"));
+                //setari garantie
+                contract.setTamplarie(rs.getString("tamplarie"));
+                contract.setCuloare(rs.getString("culoare"));
+                contract.setFeronarie(rs.getString("feronarie"));
+                contract.setSuprafata(rs.getString("suprafata"));
+                contract.setSticla(rs.getString("sticla"));
+                contract.setGeamuri(rs.getString("geamuri"));
+                contract.setUsi(rs.getString("usi"));
+                contract.setPlasa_insecte(rs.getString("plasa_insecte"));
+                contract.setPervaze(rs.getString("pervaze"));
+                contract.setPorti_de_garaj(rs.getString("porti_de_garaj"));
+                contract.setMontaj(rs.getString("montaj"));
+
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQl HIBA!");
+        }
+        System.out.println("keres contrcat :" + contract.getBeneficiar());
+        return (contract);
+    }
+
+    public boolean deleteContractById(long id) {
+
+        return (true);
+    }
+
+    public boolean updateContractById(long id, Contract contract) {
+
+        //Contract contract = new Contract();
+      //  final String SQL;
+      //  SQL = "update clienti where id=1";
+
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement ps = connection.prepareStatement("UPDATE clienti SET pj_denumire = ? WHERE id = ?");
+            ps.setString(1, contract.getPj_denumire());
+            ps.setLong(2, id);
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return(false);
+        }
+
+        return (true);
+    }
+
+    public long insertContract(Contract contract) {
+
+        return (10);
     }
 
 }
