@@ -32,12 +32,17 @@ import javax.swing.JComponent;
  */
 public class FormContract extends javax.swing.JDialog {
 
+    private Contract contract;
+   // private Database db;
+    
+    
+    
     /**
      * Creates new form Contract
      *
      * @param id
      */
-    public FormContract(int id) {
+    public FormContract(long id) {
 
         this.setModal(true);
         initComponents();
@@ -125,10 +130,11 @@ public class FormContract extends javax.swing.JDialog {
 
     }
 
-    private void loadDataToForm(int id) {
+    private void loadDataToForm(long id) {
 
         Database database = new Database();
-        Contract contract = database.queryContractById("" + id);
+        //contract = new Contract();
+        contract = database.queryContractById("" + id);
 
         System.out.println("contrcat NR cerut:" + contract.getNrContract());
 
@@ -196,28 +202,37 @@ public class FormContract extends javax.swing.JDialog {
         fFacturaNr.setText(contract.getFactura_nr());
         fFacturaEmisData.setText(contract.getFactura_emis());
 
-        //setari achitat prin
-        fChitantaSeria fChitantaNr
-        fBonDeCasa fBanca
-        fTrezorarie 
+//        //setari achitat prin
+        fChitantaSeria.setText(contract.getChitanta_serie());
+        fChitantaNr.setText(contract.getChitanta_nr());
+        fBonDeCasa.setText(contract.getBon_de_casa()); 
+        fBanca.setText(contract.getBanca());
+        fTrezorarie.setText(contract.getTrezorarie()); 
 
-         //setari termen de executie
-                fTermenExecutie 
-         //setari valoare plata
-        fValRon fValEuro 
-//setari avans plata
-        fAvansRon fAvansEuro 
-// setari rest de plata 
-        fRestRon fRestEuro 
-//setari garantie
-        fTamplarie fCuloare
-        fFeronarie fSuprafata
-        fSticla fGeamuri
-        fUsi fPlasaInsecte
-        fPervaze fPorti
-                                               
+//         //setari termen de executie
+       fTermenExecutie.setText(contract.getTermen_de_executie());
+//         //setari valoare plata
+        fValRon.setText(Float.toString(contract.getValoareRon())); 
+        fValEuro.setText(Float.toString(contract.getValoareEur())); 
+////setari avans plata
+        fAvansRon.setText(Float.toString(contract.getAvansRon()));
+        fAvansEuro.setText(Float.toString(contract.getAvansEur()));
+//// setari rest de plata 
+        fRestRon.setText(Float.toString(contract.getRestRon()));
+        fRestEuro.setText(Float.toString(contract.getRestEur()));
                 
-                fMontaj
+////setari garantie
+        fTamplarie.setText(contract.getTamplarie());
+        fCuloare.setText(contract.getCuloare());
+        fFeronarie.setText(contract.getFeronarie());
+        fSuprafata.setText(contract.getSuprafata());
+        fSticla.setText(contract.getSticla());
+        fGeamuri.setText(contract.getGeamuri());
+        fUsi.setText(contract.getUsi());
+        fPlasaInsecte.setText(contract.getPlasa_insecte());
+        fPervaze.setText(contract.getPervaze());
+        fPorti.setText(contract.getPorti_de_garaj());
+        fMontaj.setText(contract.getMontaj());
                 
         
         
@@ -335,7 +350,7 @@ public class FormContract extends javax.swing.JDialog {
         jLabel25 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         bt_inchide = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jSalvare = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
@@ -1141,10 +1156,10 @@ public class FormContract extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Salvare date");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jSalvare.setText("Salvare date");
+        jSalvare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jSalvareActionPerformed(evt);
             }
         });
 
@@ -1154,7 +1169,7 @@ public class FormContract extends javax.swing.JDialog {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSalvare, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(bt_inchide, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1165,7 +1180,7 @@ public class FormContract extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bt_inchide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSalvare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1552,12 +1567,21 @@ public class FormContract extends javax.swing.JDialog {
     }//GEN-LAST:event_bt_inchideActionPerformed
 
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jSalvareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvareActionPerformed
         // salvare in baza de date !  
+        
+        
+        
+        Database database=new Database();
+        
+        contract.setPj_denumire(fDenumireSocietate.getText());
+        database.updateContractById(1, contract);
+        
+        
 
         JOptionPane.showMessageDialog(null, "Contractul cu nr #" + fNrContract.getText() + " a fost salvat !", "Informatii", JOptionPane.WARNING_MESSAGE);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jSalvareActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1621,7 +1645,6 @@ public class FormContract extends javax.swing.JDialog {
     private javax.swing.JTextField fUsi;
     private javax.swing.JTextField fValEuro;
     private javax.swing.JTextField fValRon;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1703,6 +1726,7 @@ public class FormContract extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JButton jSalvare;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 
