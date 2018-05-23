@@ -33,6 +33,7 @@ import javax.swing.JComponent;
 public class FormContract extends javax.swing.JDialog {
 
     private Contract contract;
+    private long databaseId;
    // private Database db;
     
     
@@ -44,6 +45,7 @@ public class FormContract extends javax.swing.JDialog {
      */
     public FormContract(long id) {
 
+	this.databaseId = id;
         this.setModal(true);
         initComponents();
         clearForm();
@@ -1573,9 +1575,9 @@ public class FormContract extends javax.swing.JDialog {
         
         
         Database database=new Database();
-        
         contract.setPj_denumire(fDenumireSocietate.getText());
-        database.updateContractById(1, contract);
+	
+        database.updateContractById(this.databaseId, contract);
         
         
 
