@@ -5,6 +5,8 @@
  */
 package mmcontracte.model;
 
+import java.util.Date;
+
 /**
  *
  * @author Levi
@@ -14,7 +16,19 @@ public class Contract {
     // Lucururi comune 
     private int Id;
     private int NrContract;
-    private String DataContract;
+    //private String DataContract;
+    
+    private Date DataContract;
+
+    public Date getDataContract() {
+        return DataContract;
+    }
+
+    public void setDataContract(Date DataContract) {
+        this.DataContract = DataContract;
+    }
+    
+    
     private String Beneficiar;
     private float ValoareRon;
     private float ValoareEur;
@@ -83,12 +97,12 @@ public class Contract {
     
     public float getRestRon() {
 	return ValoareRon-AvansRon;
-	//return 200;
+	
     }
 
     public float getRestEur() {
 	return ValoareEur-AvansEur;
-        //return 100;
+        
     }
     
     
@@ -502,13 +516,13 @@ public class Contract {
 	this.NrContract = NrContract;
     }
 
-    public String getDataContract() {
-	return DataContract;
-    }
-
-    public void setDataContract(String DataContract) {
-	this.DataContract = DataContract;
-    }
+//    public Date getDataContract() {
+//	return DataContract;
+//    }
+//
+//    public void setDataContract(String DataContract) {
+//	this.DataContract = DataContract;
+//    }
 
     public String getBeneficiar() {
 	return Beneficiar;
@@ -550,21 +564,10 @@ public class Contract {
 	this.AvansEur = AvansEur;
     }
 
-    //getRestRon();
-    //getRestEur();
     public Contract() {
 
     }
 
-//    public Contract(int Id, int NrContract, String DataContract, String Beneficiar, float ValoareRon, float ValoareEur, float AvansRon, float AvansEur) {
-//	this.Id = Id;
-//	this.NrContract = NrContract;
-//	this.DataContract = DataContract;
-//	this.Beneficiar = Beneficiar;
-//	this.ValoareRon = ValoareRon;
-//	this.ValoareEur = ValoareEur;
-//	this.AvansRon = AvansRon;
-//	this.AvansEur = AvansEur;
-//    }
+
 
 }

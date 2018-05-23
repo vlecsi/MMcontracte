@@ -70,7 +70,7 @@ public class Database {
                 Contract contract = new Contract();
                 contract.setId(rs.getInt("id"));
                 contract.setNrContract(rs.getInt("nr_contract"));
-                contract.setDataContract(rs.getString("data_contract"));
+                contract.setDataContract(rs.getDate("data_contract"));
                 contract.setTip_contract(rs.getString("tip_contract"));
 
                 String beneficiar = null;
@@ -120,7 +120,7 @@ public class Database {
                 System.out.println("keres contrcat :>  ");
                 contract.setId(rs.getInt("id"));
                 contract.setNrContract(rs.getInt("nr_contract"));
-                contract.setDataContract(rs.getString("data_contract"));
+                contract.setDataContract(rs.getDate("data_contract"));
                 contract.setTip_contract(rs.getString("tip_contract"));
 
                 String beneficiar = null;
@@ -229,6 +229,19 @@ public class Database {
     }
 
     public boolean deleteContractById(long id) {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement ps = connection.prepareStatement("DELETE from clienti WHERE id = ?");
+            ps.setLong(1, id);
+            ps.execute();
+            ps.close();
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL HIBA!");
+        }
+        
+        
 
         return (true);
     }
@@ -240,12 +253,81 @@ public class Database {
       //  SQL = "update clienti where id=1";
 
         try {
+            
+            
             connection = DriverManager.getConnection(url, username, password);
-            PreparedStatement ps = connection.prepareStatement("UPDATE clienti SET pj_denumire = ? WHERE id = ?");
+
+            //UPDATE  persoana juridica
+            PreparedStatement ps = connection.prepareStatement("UPDATE clienti SET pj_denumire=?,pj_j=?, pj_cui=?,pj_localitate=?,pj_judet=?,pj_str=?,pj_nr=?,pj_bloc=?,pj_scara=?,pj_etaj=?,pj_ap=?,pj_reprezentant=?,pj_reprezentant_functie=?,pj_tel=? WHERE id = ?");
             ps.setString(1, contract.getPj_denumire());
-            ps.setLong(2, id);
+            ps.setString(2,contract.getPj_j());
+            ps.setString(3,contract.getPj_cui());
+            ps.setString(4,contract.getPj_localitate());
+            ps.setString(5,contract.getPj_judet());
+            ps.setString(6,contract.getPj_str());
+            ps.setString(7,contract.getPj_nr());
+            ps.setString(8,contract.getPj_bloc());
+            ps.setString(9,contract.getPj_scara());
+            ps.setString(10,contract.getPj_etaj());
+            ps.setString(11,contract.getPj_ap());
+            ps.setString(12,contract.getPj_reprezentant());
+            ps.setString(13,contract.getPj_reprezentant_functie());
+            ps.setString(14,contract.getPj_tel());
+            ps.setLong(15, id);
             ps.executeUpdate();
             ps.close();
+
+            
+            //UPDATE  persoana fizica
+            PreparedStatement ps1 = connection.prepareStatement("UPDATE clienti SET pf_denumire=?,pf_localitate=?,pf_judet=?,pf_str=?,pf_nr=?,pf_bloc=?,pf_scara=?,pf_etaj=?,pf_ap=?,pf_serie_buletin=?,pf_nr_buletin=?,pf_cnp=?,pf_tel=? WHERE id = ?");
+            ps1.setString(1,contract.getPf_denumire());
+            ps1.setString(2,contract.getPf_localitate());
+            ps1.setString(3,contract.getPf_judet());
+            ps1.setString(4,contract.getPf_str());
+            ps1.setString(5,contract.getPf_nr());
+            ps1.setString(6,contract.getPf_bloc());
+            ps1.setString(7,contract.getPf_scara());
+            ps1.setString(8,contract.getPf_etaj());
+            ps1.setString(9,contract.getPf_ap());
+            ps1.setString(10,contract.getPf_serie_buletin());
+            ps1.setString(11,contract.getPf_nr_buletin());
+            ps1.setString(12,contract.getPf_cnp());
+            ps1.setString(13,contract.getPf_tel());
+            ps1.setLong(14, id);
+            ps1.executeUpdate();
+            ps1.close();
+            
+            //UPDATE REST
+            PreparedStatement ps2 = connection.prepareStatement("UPDATE clienti SET profil=?,factura_seria=?,factura_nr=?,factura_emis=?,chitanta_serie=?,chitanta_nr=?,bon_de_casa=?,banca=?,trezorarie=?,termen_de_executie=?,valoare_ron=?,valoare_euro=?,avans_ron=?,avans_euro=?,tamplarie=?,culoare=?,feronarie=?,suprafata=?,sticla=?,geamuri=?,usi=?,plasa_insecte=?,pervaze=?,porti_de_garaj=?,montaj=? WHERE id = ?");
+            ps2.setString(1,contract.getProfil());
+            ps2.setString(2,contract.getFactura_seria());
+            ps2.setString(3,contract.getFactura_nr());
+            ps2.setString(4,contract.getFactura_emis());
+            ps2.setString(5,contract.getChitanta_serie());
+            ps2.setString(6,contract.getChitanta_nr());
+            ps2.setString(7,contract.getBon_de_casa());
+            ps2.setString(8,contract.getBanca());
+            ps2.setString(9,contract.getTrezorarie());
+            ps2.setString(10,contract.getTermen_de_executie());
+            ps2.setFloat(11,contract.getValoareRon());
+            ps2.setFloat(12,contract.getValoareEur());
+            ps2.setFloat(13,contract.getAvansRon());
+            ps2.setFloat(14,contract.getAvansEur());
+            ps2.setString(15,contract.getTamplarie());
+            ps2.setString(16,contract.getCuloare());
+            ps2.setString(17,contract.getFeronarie());
+            ps2.setString(18,contract.getSuprafata());
+            ps2.setString(19,contract.getSticla());
+            ps2.setString(20,contract.getGeamuri());
+            ps2.setString(21,contract.getUsi());
+            ps2.setString(22,contract.getPlasa_insecte());
+            ps2.setString(23,contract.getPervaze());
+            ps2.setString(24,contract.getPorti_de_garaj());
+            ps2.setString(25,contract.getMontaj());
+            ps2.setLong(26, id);
+            ps2.executeUpdate();
+            ps2.close();
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,6 +339,36 @@ public class Database {
 
     public long insertContract(Contract contract) {
 
+        
+        try {
+            
+            connection = DriverManager.getConnection(url, username, password);
+
+            //UPDATE  persoana juridica
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO clienti (pj_denumire,pj_j,pj_cui,pj_localitate,pj_judet,pj_str,pj_nr,pj_bloc,pj_scara,pj_etaj,pj_ap,pj_reprezentant,pj_reprezentant_functie,pj_tel) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps.setString(1,contract.getPj_denumire());
+            ps.setString(2,contract.getPj_j());
+            ps.setString(3,contract.getPj_cui());
+            ps.setString(4,contract.getPj_localitate());
+            ps.setString(5,contract.getPj_judet());
+            ps.setString(6,contract.getPj_str());
+            ps.setString(7,contract.getPj_nr());
+            ps.setString(8,contract.getPj_bloc());
+            ps.setString(9,contract.getPj_scara());
+            ps.setString(10,contract.getPj_etaj());
+            ps.setString(11,contract.getPj_ap());
+            ps.setString(12,contract.getPj_reprezentant());
+            ps.setString(13,contract.getPj_reprezentant_functie());
+            ps.setString(14,contract.getPj_tel());
+            ps.execute();
+            ps.close();
+        
+        
+        }catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return(1);
+        }
+        
         return (10);
     }
 

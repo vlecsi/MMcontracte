@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -66,6 +67,7 @@ public class FormMain extends javax.swing.JFrame {
 
 	int rowIndex = 0;
 	Database data = new Database();
+        SimpleDateFormat ft =new SimpleDateFormat ("dd/MM/yyyy");
 
 	//dm.setRowCount(0);
 	ArrayList<Contract> list = data.queryContracte(tfCauta.getText());
@@ -78,7 +80,7 @@ public class FormMain extends javax.swing.JFrame {
 	    for (int i = 0; i < list.size(); i++) {
 		rowField[0] = list.get(i).getId();
 		rowField[1] = list.get(i).getNrContract();
-		rowField[2] = list.get(i).getDataContract();
+                rowField[2] = ft.format(list.get(i).getDataContract());
 		rowField[3] = (boolean) false;
 		rowField[4] = (boolean) false;
 		if ("PERSOANA FIZICA".equals(list.get(i).getTip_contract())) {
@@ -100,8 +102,6 @@ public class FormMain extends javax.swing.JFrame {
 		rowField[10] = df.format(list.get(i).getRestRon());
 		rowField[11] = df.format(list.get(i).getRestEur());
 
-	//	System.out.println(list.get(i).getRestEur());
-	//	System.out.println("ROW NR:" + list.size());
 		rows[rowIndex] = new ModelRow(rowField[0], rowField[1], rowField[2], rowField[3], rowField[4], rowField[5], rowField[6], rowField[7], rowField[8], rowField[9], rowField[10], rowField[11]);
 		++rowIndex;
 	    }
@@ -468,13 +468,17 @@ public class FormMain extends javax.swing.JFrame {
 
 	if (mytable.getSelectedRow() < 0) {  return; }
 	int row = mytable.getSelectedRow();
-	String value = mytable.getModel().getValueAt(row, 0).toString();
+	String myID = mytable.getModel().getValueAt(row, 0).toString();
         String nrContract=mytable.getModel().getValueAt(row, 1).toString();
-	
+	if (myID == null) {   return; 	}
+        
          int response = JOptionPane.showConfirmDialog(null, "Doriti sa stergeti contractul cu nr #"+nrContract+ " ?", "Confirmare stergere contrcat",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
           if (response == JOptionPane.YES_OPTION) {
 
               //sterge ID-ul
+              
+              Database db=new Database();
+              db.deleteContractById(Integer.parseInt(myID));
               JOptionPane.showMessageDialog(null, "Contractul cu nr #"+nrContract+" a fost sters !", "Informatii", JOptionPane.WARNING_MESSAGE);
               loadTableData(); 
            }   
@@ -498,11 +502,12 @@ public class FormMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btCautaActionPerformed
 
     private void btContractNouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContractNouActionPerformed
-	int id = 0;
-	FormContract fc = new FormContract(id);
+	int myID = 0;
+	FormContract fc = new FormContract(myID);
 	fc.pack();
 	fc.setVisible(true);
-
+        
+        loadTableData();
     }//GEN-LAST:event_btContractNouActionPerformed
 
     private void btAnulareCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnulareCautareActionPerformed
@@ -521,26 +526,19 @@ public class FormMain extends javax.swing.JFrame {
     private void btModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificaActionPerformed
 
 	if (mytable.getSelectedRow() < 0) { return; }
-	String value = mytable.getModel().getValueAt(mytable.getSelectedRow(), 0).toString();
-	if (value == null) {   return; 	}
+	String myID = mytable.getModel().getValueAt(mytable.getSelectedRow(), 0).toString();
+	if (myID == null) {   return; 	}
 
-	System.out.println("Selected:" + value);
-	FormContract fcontract = new FormContract(Integer.parseInt(value));
+	System.out.println("Selected:" + myID);
+	FormContract fcontract = new FormContract(Integer.parseInt(myID));
 	fcontract.pack();
 	fcontract.setVisible(true);
-
-	
-
+        loadTableData(); 
 
     }//GEN-LAST:event_btModificaActionPerformed
 
     private void btTiparesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTiparesteActionPerformed
-        //Tiparire 
-
-        // TODO add your handling code here:
-        
         HashMap param = new HashMap();
-        
         param.put("contractDetalii", "NR. 12 din data de 11/12/2015");
         
         

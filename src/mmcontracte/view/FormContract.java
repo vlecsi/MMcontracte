@@ -19,6 +19,7 @@ import java.awt.KeyboardFocusManager;
 import static java.lang.String.format;
 import static java.lang.String.format;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -32,7 +33,7 @@ import javax.swing.JComponent;
  */
 public class FormContract extends javax.swing.JDialog {
 
-    private Contract contract;
+//    private Contract contract;
     private long databaseId;
    // private Database db;
     
@@ -44,14 +45,12 @@ public class FormContract extends javax.swing.JDialog {
      * @param id
      */
     public FormContract(long id) {
-
-	this.databaseId = id;
+        this.databaseId = id;
         this.setModal(true);
         initComponents();
         clearForm();
         loadDataToForm(id);
         upcaseAll();
-
     }
 
     private void upcaseAll() {
@@ -85,20 +84,20 @@ public class FormContract extends javax.swing.JDialog {
 
         fChitantaSeria.setText("");
         fChitantaNr.setText("");
-        fTermenExecutie.setText("");
+        fTermenExecutie.setText("15");
 
         fBonDeCasa.setText("");
         fBanca.setText("");
         fTrezorarie.setText("");
 
-        fValRon.setText("");
-        fValEuro.setText("");
+        fValRon.setText("0.00");
+        fValEuro.setText("0.00");
 
-        fAvansRon.setText("");
-        fAvansEuro.setText("");
+        fAvansRon.setText("0.00");
+        fAvansEuro.setText("0.00");
 
-        fRestRon.setText("");
-        fRestEuro.setText("");
+        fRestRon.setText("0.00");
+        fRestEuro.setText("0.00");
 
         fTamplarie.setText("");
         fCuloare.setText("");
@@ -134,23 +133,25 @@ public class FormContract extends javax.swing.JDialog {
 
     private void loadDataToForm(long id) {
 
+        if (id==0){ return; }
+
+        
         Database database = new Database();
-        //contract = new Contract();
-        contract = database.queryContractById("" + id);
+        Contract contract = database.queryContractById("" + id);
 
         System.out.println("contrcat NR cerut:" + contract.getNrContract());
 
         fNrContract.setText(Integer.toString(contract.getNrContract(), 1));
 
-        String myDate = contract.getDataContract();
-        DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        Date date = null;
-        try {
-            date = dformat.parse(myDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(FormContract.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        fDataContract.setDate(date);
+        //String myDate = contract.getDataContract();
+//        DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+//        Date date = null;
+//        try {
+//            date = dformat.parse(contract.getDataContract());
+//        } catch (ParseException ex) {
+//            Logger.getLogger(FormContract.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        fDataContract.setDate(contract.getDataContract());
 
         if ("PERSOANA FIZICA".equals(contract.getTip_contract())) {
             fPf.setSelected(true);
@@ -213,15 +214,22 @@ public class FormContract extends javax.swing.JDialog {
 
 //         //setari termen de executie
        fTermenExecutie.setText(contract.getTermen_de_executie());
-//         //setari valoare plata
-        fValRon.setText(Float.toString(contract.getValoareRon())); 
-        fValEuro.setText(Float.toString(contract.getValoareEur())); 
+
+        
+	DecimalFormat df = new DecimalFormat("#0.00#");
+
+
+       //setari valoare plata
+        fValRon.setText(df.format(contract.getValoareRon())); 
+        fValEuro.setText(df.format(contract.getValoareEur())); 
+        
 ////setari avans plata
-        fAvansRon.setText(Float.toString(contract.getAvansRon()));
-        fAvansEuro.setText(Float.toString(contract.getAvansEur()));
+        fAvansRon.setText(df.format(contract.getAvansRon()));
+        fAvansEuro.setText(df.format(contract.getAvansEur()));
 //// setari rest de plata 
-        fRestRon.setText(Float.toString(contract.getRestRon()));
-        fRestEuro.setText(Float.toString(contract.getRestEur()));
+
+        fRestRon.setText(df.format(contract.getRestRon()));
+        fRestEuro.setText(df.format(contract.getRestEur()));
                 
 ////setari garantie
         fTamplarie.setText(contract.getTamplarie());
@@ -1193,8 +1201,10 @@ public class FormContract extends javax.swing.JDialog {
         jLabel37.setText("EURO:");
 
         fAvansEuro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fAvansEuro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         fAvansRon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fAvansRon.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1383,8 +1393,10 @@ public class FormContract extends javax.swing.JDialog {
         jLabel49.setText("EURO:");
 
         fValEuro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fValEuro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         fValRon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fValRon.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -1423,11 +1435,15 @@ public class FormContract extends javax.swing.JDialog {
 
         jLabel39.setText("EURO:");
 
+        fRestEuro.setEditable(false);
         fRestEuro.setBackground(new java.awt.Color(102, 255, 204));
         fRestEuro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fRestEuro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
+        fRestRon.setEditable(false);
         fRestRon.setBackground(new java.awt.Color(102, 255, 204));
         fRestRon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fRestRon.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1572,15 +1588,97 @@ public class FormContract extends javax.swing.JDialog {
     private void jSalvareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvareActionPerformed
         // salvare in baza de date !  
         
+        Contract ct=new Contract();
+       //ct.setNrContract();
+       //ct.setDataContract();
+       
         
         
-        Database database=new Database();
-        contract.setPj_denumire(fDenumireSocietate.getText());
-	
-        database.updateContractById(this.databaseId, contract);
-        
+       
+       //SALVARE persoana juridica
+        ct.setPj_denumire(fDenumireSocietate.getText());
+        ct.setPj_j(fRegistrulComertului.getText()); 
+        ct.setPj_cui(fCui.getText());   
+        ct.setPj_localitate(fPjLocalitate.getText()) ;
+        ct.setPj_judet(fPjJudet.getText());
+        ct.setPj_str(fPjStrada.getText());
+        ct.setPj_nr(fPjNr.getText());
+        ct.setPj_bloc(fPjBloc.getText());
+        ct.setPj_scara(fPjScara.getText());
+        ct.setPj_etaj(fPjEtaj.getText());
+        ct.setPj_ap(fPjAp.getText());
+        ct.setPj_reprezentant(fPjReprezentantNume.getText());
+        ct.setPj_reprezentant_functie(fPjReprezentantFunctie.getText());
+        ct.setPj_tel(fPjReprezentantTelefon.getText());
         
 
+        //SALVARE persoana fizica
+        //-------------------------------------
+        ct.setPf_denumire(fDenumirePf.getText());
+        ct.setPf_localitate(fPfLocalitate.getText());
+        ct.setPf_judet(fPfJudet.getText());
+        ct.setPf_str(fPfStr.getText());
+        ct.setPf_nr(fPfNr.getText());
+        ct.setPf_bloc(fPfBloc.getText());
+        ct.setPf_scara(fPfScara.getText());
+        ct.setPf_etaj(fPfEtaj.getText());
+        ct.setPf_ap(fPfAp.getText());
+        ct.setPf_serie_buletin(fPfCiSeria.getText());
+        ct.setPf_nr_buletin(fPfCiNr.getText());
+        ct.setPf_cnp(fPfCnp.getText());
+        ct.setPf_tel(fPfTel.getText());
+                                        
+        //setari Obiect ct
+        ct.setProfil(fProfil.getText());
+
+        //setari factura
+        ct.setFactura_seria(fFacturaSeria.getText());
+        ct.setFactura_nr(fFacturaNr.getText());
+        ct.setFactura_emis(fFacturaEmisData.getText());
+                
+       //setari achitat prin
+
+       ct.setChitanta_serie(fChitantaSeria.getText());
+       ct.setChitanta_nr(fChitantaNr.getText());
+       ct.setBon_de_casa(fBonDeCasa.getText());
+       ct.setBanca(fBanca.getText());
+       ct.setTrezorarie(fTrezorarie.getText());
+
+       //setari termen de executie
+       ct.setTermen_de_executie(fTermenExecutie.getText());
+
+       //setari valoare plata
+       ct.setValoareRon(Float.parseFloat(fValRon.getText()));
+       ct.setValoareEur(Float.parseFloat(fValEuro.getText()));
+
+       //setari avans plata
+       ct.setAvansRon(Float.parseFloat(fAvansRon.getText()));
+       ct.setAvansEur(Float.parseFloat(fAvansEuro.getText()));
+
+       //setari garantie
+       ct.setTamplarie(fTamplarie.getText());
+       ct.setCuloare(fCuloare.getText());
+       ct.setFeronarie(fFeronarie.getText());
+       ct.setSuprafata(fSuprafata.getText());
+       ct.setSticla(fSticla.getText());
+       ct.setGeamuri(fGeamuri.getText());
+       ct.setUsi(fUsi.getText());
+       ct.setPlasa_insecte(fPlasaInsecte.getText());
+       ct.setPervaze(fPervaze.getText());
+       ct.setPorti_de_garaj(fPorti.getText());
+       ct.setMontaj(fMontaj.getText());
+        
+        
+        if (this.databaseId ==0) {
+            // If ID=0 akkor beszurast hajtunk vegre 
+	   Database database=new Database();
+           database.insertContract(ct);
+        }else{
+            // if ID<>0 akkor modositjuka contractot
+	   Database database=new Database();
+           database.updateContractById(this.databaseId, ct);
+            
+        }
         JOptionPane.showMessageDialog(null, "Contractul cu nr #" + fNrContract.getText() + " a fost salvat !", "Informatii", JOptionPane.WARNING_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jSalvareActionPerformed
