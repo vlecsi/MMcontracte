@@ -16,8 +16,6 @@ public class Contract {
     // Lucururi comune 
     private int Id;
     private int NrContract;
-    //private String DataContract;
-    
     private Date DataContract;
 
     public Date getDataContract() {

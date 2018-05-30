@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mmcontracte.model.Contract;
@@ -47,6 +48,21 @@ public class Database {
         System.out.println("Database connected!");
         return (true);
     }
+    
+    public long getNextNrContract() {
+        long nrContract = 0;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            Statement  stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(nr_contract) AS nr FROM clienti");
+            while (rs.next()){
+               nrContract=rs.getLong("nr");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return(nrContract);
+    }
 
     public ArrayList<Contract> queryContracte(String cauta) {
         ArrayList<Contract> contracte = null;
@@ -70,9 +86,16 @@ public class Database {
                 Contract contract = new Contract();
                 contract.setId(rs.getInt("id"));
                 contract.setNrContract(rs.getInt("nr_contract"));
-                contract.setDataContract(rs.getDate("data_contract"));
-                contract.setTip_contract(rs.getString("tip_contract"));
+                
+                Date dt= new Date();
+                if (rs.getString("data_contract") == null) {
+                    System.out.println("hiba");
+                    contract.setDataContract(dt);
+                }else {  
+                  contract.setDataContract(rs.getDate("data_contract"));
+                }  
 
+                contract.setTip_contract(rs.getString("tip_contract"));
                 String beneficiar = null;
                 if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))) {
                     beneficiar = rs.getString("pf_denumire");
@@ -106,11 +129,14 @@ public class Database {
         return (contracte);
     }
 
+    
+    
+    
     public Contract queryContractById(String id) {
 
         Contract contract = new Contract();
         final String SQL;
-        SQL = "select * from clienti where id=" + id + " order by data_contract desc";
+        SQL = "select * from clienti where id=" + id;
 
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -123,19 +149,6 @@ public class Database {
                 contract.setDataContract(rs.getDate("data_contract"));
                 contract.setTip_contract(rs.getString("tip_contract"));
 
-                String beneficiar = null;
-                if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))) {
-                    beneficiar = rs.getString("pf_denumire");
-
-                }
-                if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))) {
-                    beneficiar = rs.getString("pj_denumire");
-                }
-
-                if (beneficiar == null) {
-                    beneficiar = "";
-                }
-                contract.setBeneficiar(beneficiar);
 
                 //setari persoana juridica
                 //-------------------------------------
@@ -200,9 +213,7 @@ public class Database {
                 contract.setAvansRon(rs.getFloat("avans_ron"));
                 contract.setAvansEur(rs.getFloat("avans_euro"));
 
-                // setari rest de plata  Autocalulated !!!
-                //contract.setRestRon(rs.getFloat("rest_ron"));
-                //contract.setRestEur(rs.getFloat("rest_euro"));
+          
                 //setari garantie
                 contract.setTamplarie(rs.getString("tamplarie"));
                 contract.setCuloare(rs.getString("culoare"));
@@ -256,6 +267,30 @@ public class Database {
             
             
             connection = DriverManager.getConnection(url, username, password);
+            
+            
+            
+            
+            
+            
+           //UPDATE  NR DATA TIP-PERSOANA
+           //nr_contract
+           //data_contract
+           //tip_contract        
+                   
+                   
+            PreparedStatement ps5 = connection.prepareStatement("UPDATE clienti SET nr_contract=?,data_contract=?, tip_contract=? WHERE id = ?");
+            ps5.setLong(1, contract.getNrContract());
+            Date myDate=contract.getDataContract();
+            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+            ps5.setDate(2,sqlDate);
+            ps5.setString(3,contract.getTip_contract());
+            ps5.setLong(4, id);
+            ps5.executeUpdate();
+            ps5.close();
+
+            
+            
 
             //UPDATE  persoana juridica
             PreparedStatement ps = connection.prepareStatement("UPDATE clienti SET pj_denumire=?,pj_j=?, pj_cui=?,pj_localitate=?,pj_judet=?,pj_str=?,pj_nr=?,pj_bloc=?,pj_scara=?,pj_etaj=?,pj_ap=?,pj_reprezentant=?,pj_reprezentant_functie=?,pj_tel=? WHERE id = ?");
@@ -339,27 +374,77 @@ public class Database {
 
     public long insertContract(Contract contract) {
 
-        
         try {
             
             connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement ps =connection.prepareStatement("INSERT INTO clienti (nr_contract,data_contract, tip_contract,pj_denumire,pj_j,pj_cui,pj_localitate,pj_judet,pj_str,pj_nr,pj_bloc,pj_scara,pj_etaj,pj_ap,pj_reprezentant,pj_reprezentant_functie,pj_tel,pf_denumire,pf_localitate,pf_judet,pf_str,pf_nr,pf_bloc,pf_scara,pf_etaj,pf_ap,pf_serie_buletin,pf_nr_buletin,pf_cnp,pf_tel,profil,factura_seria,factura_nr,factura_emis,chitanta_serie,chitanta_nr,bon_de_casa,banca,trezorarie,termen_de_executie,valoare_ron,valoare_euro,avans_ron,avans_euro,tamplarie,culoare,feronarie,suprafata,sticla,geamuri,usi,plasa_insecte,pervaze,porti_de_garaj,montaj) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-            //UPDATE  persoana juridica
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO clienti (pj_denumire,pj_j,pj_cui,pj_localitate,pj_judet,pj_str,pj_nr,pj_bloc,pj_scara,pj_etaj,pj_ap,pj_reprezentant,pj_reprezentant_functie,pj_tel) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setString(1,contract.getPj_denumire());
-            ps.setString(2,contract.getPj_j());
-            ps.setString(3,contract.getPj_cui());
-            ps.setString(4,contract.getPj_localitate());
-            ps.setString(5,contract.getPj_judet());
-            ps.setString(6,contract.getPj_str());
-            ps.setString(7,contract.getPj_nr());
-            ps.setString(8,contract.getPj_bloc());
-            ps.setString(9,contract.getPj_scara());
-            ps.setString(10,contract.getPj_etaj());
-            ps.setString(11,contract.getPj_ap());
-            ps.setString(12,contract.getPj_reprezentant());
-            ps.setString(13,contract.getPj_reprezentant_functie());
-            ps.setString(14,contract.getPj_tel());
+
+            //INSERT  NR DATA TIP-PERSOANA
+            ps.setLong(1, contract.getNrContract());
+            Date myDate=contract.getDataContract();
+            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+            ps.setDate(2,sqlDate);
+            ps.setString(3,contract.getTip_contract());
+
+            //INSERT  persoana juridica
+            ps.setString(4,contract.getPj_denumire());
+            ps.setString(5,contract.getPj_j());
+            ps.setString(6,contract.getPj_cui());
+            ps.setString(7,contract.getPj_localitate());
+            ps.setString(8,contract.getPj_judet());
+            ps.setString(9,contract.getPj_str());
+            ps.setString(10,contract.getPj_nr());
+            ps.setString(11,contract.getPj_bloc());
+            ps.setString(12,contract.getPj_scara());
+            ps.setString(13,contract.getPj_etaj());
+            ps.setString(14,contract.getPj_ap());
+            ps.setString(15,contract.getPj_reprezentant());
+            ps.setString(16,contract.getPj_reprezentant_functie());
+            ps.setString(17,contract.getPj_tel());
+            
+            //INSERT  persoana FIZICZA
+            ps.setString(18,contract.getPf_denumire());
+            ps.setString(19,contract.getPf_localitate());
+            ps.setString(20,contract.getPf_judet());
+            ps.setString(21,contract.getPf_str());
+            ps.setString(22,contract.getPf_nr());
+            ps.setString(23,contract.getPf_bloc());
+            ps.setString(24,contract.getPf_scara());
+            ps.setString(25,contract.getPf_etaj());
+            ps.setString(26,contract.getPf_ap());
+            ps.setString(27,contract.getPf_serie_buletin());
+            ps.setString(28,contract.getPf_nr_buletin());
+            ps.setString(29,contract.getPf_cnp());
+            ps.setString(30,contract.getPf_tel());
+            
+            //INSERT  Restul
+            ps.setString(31,contract.getProfil());
+            ps.setString(32,contract.getFactura_seria());
+            ps.setString(33,contract.getFactura_nr());
+            ps.setString(34,contract.getFactura_emis());
+            ps.setString(35,contract.getChitanta_serie());
+            ps.setString(36,contract.getChitanta_nr());
+            ps.setString(37,contract.getBon_de_casa());
+            ps.setString(38,contract.getBanca());
+            ps.setString(39,contract.getTrezorarie());
+            ps.setString(40,contract.getTermen_de_executie());
+            ps.setFloat(41,contract.getValoareRon());
+            ps.setFloat(42,contract.getValoareEur());
+            ps.setFloat(43,contract.getAvansRon());
+            ps.setFloat(44,contract.getAvansEur());
+            ps.setString(45,contract.getTamplarie());
+            ps.setString(46,contract.getCuloare());
+            ps.setString(47,contract.getFeronarie());
+            ps.setString(48,contract.getSuprafata());
+            ps.setString(49,contract.getSticla());
+            ps.setString(50,contract.getGeamuri());
+            ps.setString(51,contract.getUsi());
+            ps.setString(52,contract.getPlasa_insecte());
+            ps.setString(53,contract.getPervaze());
+            ps.setString(54,contract.getPorti_de_garaj());
+            ps.setString(55,contract.getMontaj());
+            
             ps.execute();
             ps.close();
         

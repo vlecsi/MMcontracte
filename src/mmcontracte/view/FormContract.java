@@ -26,6 +26,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -133,31 +135,37 @@ public class FormContract extends javax.swing.JDialog {
 
     private void loadDataToForm(long id) {
 
-        if (id==0){ return; }
+        // Ha id=0 akkor UJ adat jon 
+        if (id==0){ 
+            fPj.setSelected(true);
+            jTabbedPane1.setEnabledAt(0, true);
+            jTabbedPane1.setEnabledAt(1, false);
+            fDataContract.setDate(new Date());
+            Database dta = new Database();
+            long nrContract=dta.getNextNrContract()+1;
+            fNrContract.setText(Long.toString(nrContract));
+            return; 
+        }
 
         
         Database database = new Database();
         Contract contract = database.queryContractById("" + id);
 
         System.out.println("contrcat NR cerut:" + contract.getNrContract());
-
         fNrContract.setText(Integer.toString(contract.getNrContract(), 1));
-
-        //String myDate = contract.getDataContract();
-//        DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-//        Date date = null;
-//        try {
-//            date = dformat.parse(contract.getDataContract());
-//        } catch (ParseException ex) {
-//            Logger.getLogger(FormContract.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         fDataContract.setDate(contract.getDataContract());
 
         if ("PERSOANA FIZICA".equals(contract.getTip_contract())) {
             fPf.setSelected(true);
+            jTabbedPane1.setSelectedIndex(1);
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setEnabledAt(1, true);
         }
         if ("PERSOANA JURIDICA".equals(contract.getTip_contract())) {
             fPj.setSelected(true);
+            jTabbedPane1.setSelectedIndex(0);
+            jTabbedPane1.setEnabledAt(0, true);
+            jTabbedPane1.setEnabledAt(1, false);
         }
 
         //setari persoana juridica
@@ -411,12 +419,15 @@ public class FormContract extends javax.swing.JDialog {
 
         jLabel1.setText("Nr. Contract:");
 
-        fNrContract.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        fNrContract.setEditable(false);
+        fNrContract.setBackground(new java.awt.Color(255, 153, 153));
+        fNrContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        fNrContract.setFocusable(false);
 
         jLabel2.setText("Data Contract:");
 
         fDataContract.setDateFormatString("dd/MM/yyyy");
-        fDataContract.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        fDataContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -429,20 +440,19 @@ public class FormContract extends javax.swing.JDialog {
                 .addComponent(fNrContract, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fDataContract, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fDataContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(fNrContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(fNrContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(fDataContract, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -450,9 +460,19 @@ public class FormContract extends javax.swing.JDialog {
 
         bGroupTipContract.add(fPj);
         fPj.setText("Persoana Juridica ");
+        fPj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fPjActionPerformed(evt);
+            }
+        });
 
         bGroupTipContract.add(fPf);
         fPf.setText("Persoana Fizica");
+        fPf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fPfActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1586,12 +1606,40 @@ public class FormContract extends javax.swing.JDialog {
 
 
     private void jSalvareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvareActionPerformed
-        // salvare in baza de date !  
+        // ADAT ELLENORZES !!! FONTOS
         
+        
+        if (fNrContract.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Erroare formular: NrContract necompletat !","Date incomplete", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (fTermenExecutie.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Erroare formular: Termen de Executie necompletat !","Date incomplete", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if ((fDenumireSocietate.getText().isEmpty()) && (fPj.isSelected())) {
+            JOptionPane.showMessageDialog(null, "Erroare formular: Denumire Societate Comerciala necompletat !","Date incomplete", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (fDenumirePf.getText().isEmpty() && (fPf.isSelected())){
+            JOptionPane.showMessageDialog(null, "Erroare formular: Denumire Persoana Fizica necompletat !","Date incomplete", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // salvare in baza de date !  
         Contract ct=new Contract();
-       //ct.setNrContract();
-       //ct.setDataContract();
-       
+        ct.setNrContract(Integer.parseInt(fNrContract.getText()));
+        ct.setDataContract(fDataContract.getDate());
+         
+        if (fPf.isSelected()) {
+            ct.setTip_contract("PERSOANA FIZICA");    
+        }else{
+            ct.setTip_contract("PERSOANA JURIDICA");    
+        }
+            
         
         
        
@@ -1682,6 +1730,24 @@ public class FormContract extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(null, "Contractul cu nr #" + fNrContract.getText() + " a fost salvat !", "Informatii", JOptionPane.WARNING_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jSalvareActionPerformed
+
+    private void fPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fPjActionPerformed
+        // TODO add your handling code here:
+        
+        jTabbedPane1.setSelectedIndex(0);
+        jTabbedPane1.setEnabledAt(0, true);
+        jTabbedPane1.setEnabledAt(1, false);
+    }//GEN-LAST:event_fPjActionPerformed
+
+    private void fPfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fPfActionPerformed
+        // TODO add your handling code here:
+        
+        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setEnabledAt(1, true);
+        jTabbedPane1.setEnabledAt(0, false);
+     
+        
+    }//GEN-LAST:event_fPfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
