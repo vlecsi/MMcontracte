@@ -3,13 +3,10 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="25"/>
-	<parameter name="contractDetalii" class="java.lang.String"/>
-	<parameter name="furnizorNume" class="java.lang.String"/>
-	<parameter name="furnizorDescriere" class="java.lang.String"/>
-	<parameter name="beneficiarNume" class="java.lang.String"/>
-	<parameter name="beneficiarDescriere" class="java.lang.String"/>
-	<parameter name="obiectulContractului" class="java.lang.String"/>
-	<parameter name="valoareaContractului" class="java.lang.String"/>
+	<parameter name="termenulDeExecutie" class="java.lang.String"/>
+	<parameter name="obligatiiBeneficiar" class="java.lang.String"/>
+	<parameter name="obligatiiFurnizor" class="java.lang.String"/>
+	<parameter name="garantie" class="java.lang.String"/>
 	<field name="field1" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -55,51 +52,30 @@
 				</textElement>
 				<text><![CDATA[Tel.: 0740645401, 0763663097 Fax.: 0262-348519]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="1" y="112" width="555" height="21" uuid="fae54027-a17e-46f8-930d-07ba757ab3e0"/>
-				<textElement textAlignment="Center">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONTRACT DE PRESTARI SERVICII]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="652">
-			<textField>
-				<reportElement x="-1" y="0" width="555" height="20" uuid="d302decf-2670-4ba7-bd00-12b90e1686fd"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{contractDetalii}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="-1" y="51" width="279" height="20" uuid="1a12921a-34a7-4fd9-af37-957daac9de33"/>
+				<reportElement x="-1" y="-18" width="279" height="20" uuid="1a12921a-34a7-4fd9-af37-957daac9de33"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Art. I Partile contractante:]]></text>
+				<text><![CDATA[Art. IV TERMENUL DE EXECUTIE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="43" y="83" width="147" height="20" uuid="45af5deb-922d-4636-bd61-c13c43ec0832"/>
-				<textElement markup="none">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{furnizorNume}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="1" y="249" width="260" height="20" uuid="6845d52d-edb2-4fd4-8a50-c8505451c12f"/>
+				<reportElement x="1" y="88" width="298" height="20" uuid="6845d52d-edb2-4fd4-8a50-c8505451c12f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Art. II Obiectul contrcatului]]></text>
+				<text><![CDATA[Art. V OBLIGATIILE BENEFICIARULUI]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="428" width="298" height="20" uuid="c03f8926-4bc4-4f60-b713-330b3d5ec3e5"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Art. III Valoarea contrcatului]]></text>
+				<text><![CDATA[Art. VII GARANTIA]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="416" y="612" width="80" height="20" uuid="3b6d2bbe-ce60-4b6d-907e-0ca92815adab"/>
@@ -111,34 +87,28 @@
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="103" width="542" height="54" uuid="c5fe571a-41be-4d7f-a134-141b50c782f6"/>
-				<textFieldExpression><![CDATA[$P{furnizorDescriere}]]></textFieldExpression>
+				<reportElement x="0" y="2" width="554" height="54" uuid="c5fe571a-41be-4d7f-a134-141b50c782f6"/>
+				<textFieldExpression><![CDATA[$P{termenulDeExecutie}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="43" y="157" width="147" height="20" uuid="5a00cbdf-34f1-40a8-a3b9-5f3d45140df3"/>
-				<textElement markup="none">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{beneficiarNume}]]></textFieldExpression>
+				<reportElement x="1" y="241" width="555" height="125" uuid="af4aa6d0-4e43-4c93-a66e-403e7e243a31"/>
+				<textFieldExpression><![CDATA[$P{obligatiiFurnizor}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="13" y="177" width="542" height="72" uuid="ba7535d0-f3be-4e24-99ae-095d613ec44e"/>
-				<textFieldExpression><![CDATA[$P{beneficiarDescriere}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="-1" y="269" width="555" height="159" uuid="af4aa6d0-4e43-4c93-a66e-403e7e243a31"/>
-				<textFieldExpression><![CDATA[$P{obiectulContractului}]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement x="13" y="83" width="16" height="18" backcolor="#666666" uuid="e526be30-c7db-4826-8792-71d3efcc44bc"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="13" y="157" width="16" height="18" backcolor="#666666" uuid="0020c9c7-87ba-44c7-ac03-254d93b12df6"/>
-			</rectangle>
 			<textField>
 				<reportElement x="0" y="448" width="555" height="116" uuid="c8908d10-b5a1-4063-9dd3-458cb82c4306"/>
-				<textFieldExpression><![CDATA[$P{valoareaContractului}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{garantie}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="1" y="108" width="554" height="91" uuid="a64161db-2f40-43f1-aaa2-6c0a8229cfbf"/>
+				<textFieldExpression><![CDATA[$P{obligatiiBeneficiar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="221" width="298" height="20" uuid="c7c3f0ba-2819-4de7-afa2-0b3d728f21df"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Art. VI OBLIGATIILE FURNIZORULUI]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 </jasperReport>

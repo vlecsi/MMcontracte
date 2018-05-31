@@ -149,7 +149,7 @@ public class FormContract extends javax.swing.JDialog {
 
         
         Database database = new Database();
-        Contract contract = database.queryContractById("" + id);
+        Contract contract = database.queryContractById(id);
 
         System.out.println("contrcat NR cerut:" + contract.getNrContract());
         fNrContract.setText(Integer.toString(contract.getNrContract(), 1));

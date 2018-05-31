@@ -11,11 +11,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -29,8 +32,8 @@ import static javax.swing.SwingConstants.RIGHT;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import mmcontracte.model.Contract;
+import mmcontracte.model.ImprimareContract;
 import net.sf.jasperreports.engine.JREmptyDataSource;
-
 
 import org.quinto.swing.table.model.IModelFieldGroup;
 import org.quinto.swing.table.model.ModelData;
@@ -39,17 +42,14 @@ import org.quinto.swing.table.model.ModelFieldGroup;
 import org.quinto.swing.table.model.ModelRow;
 import org.quinto.swing.table.view.JBroTable;
 
-
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
-
-
-
-
 
 /**
  *
@@ -61,158 +61,157 @@ public class FormMain extends javax.swing.JFrame {
     private ModelData mydata;
     private ModelRow[] rows;
 
-  
-    
     private void loadTableData() {
 
-	int rowIndex = 0;
-	Database data = new Database();
-        SimpleDateFormat ft =new SimpleDateFormat ("dd/MM/yyyy");
+        int rowIndex = 0;
+        Database data = new Database();
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
 
-	//dm.setRowCount(0);
-	ArrayList<Contract> list = data.queryContracte(tfCauta.getText());
-	System.out.println(" LEFUTOTTAM !!!!!!!!!!!!!!!!");
+        //dm.setRowCount(0);
+        ArrayList<Contract> list = data.queryContracte(tfCauta.getText());
+        System.out.println(" LEFUTOTTAM !!!!!!!!!!!!!!!!");
 
-	rows = new ModelRow[list.size()];
-	if (!list.isEmpty()) {
+        rows = new ModelRow[list.size()];
+        if (!list.isEmpty()) {
 
-	    Object[] rowField = new Object[12];
-	    for (int i = 0; i < list.size(); i++) {
-		rowField[0] = list.get(i).getId();
-		rowField[1] = list.get(i).getNrContract();
+            Object[] rowField = new Object[12];
+            for (int i = 0; i < list.size(); i++) {
+                rowField[0] = list.get(i).getId();
+                rowField[1] = list.get(i).getNrContract();
                 rowField[2] = ft.format(list.get(i).getDataContract());
-		rowField[3] = (boolean) false;
-		rowField[4] = (boolean) false;
-		if ("PERSOANA FIZICA".equals(list.get(i).getTip_contract())) {
-		    rowField[3] = (boolean) true;
-		}
-		if ("PERSOANA JURIDICA".equals(list.get(i).getTip_contract())) {
-		    rowField[4] = (boolean) true;
-		}
+                rowField[3] = (boolean) false;
+                rowField[4] = (boolean) false;
+                if ("PERSOANA FIZICA".equals(list.get(i).getTip_contract())) {
+                    rowField[3] = (boolean) true;
+                }
+                if ("PERSOANA JURIDICA".equals(list.get(i).getTip_contract())) {
+                    rowField[4] = (boolean) true;
+                }
 
-		rowField[5] = list.get(i).getBeneficiar().toUpperCase();
+                rowField[5] = list.get(i).getBeneficiar().toUpperCase();
 
-		String dcpattern = "#0.00#";
-		DecimalFormat df = new DecimalFormat(dcpattern);
+                String dcpattern = "#0.00#";
+                DecimalFormat df = new DecimalFormat(dcpattern);
 
-		rowField[6] = df.format(list.get(i).getValoareRon());
-		rowField[7] = df.format(list.get(i).getValoareEur());
-		rowField[8] = df.format(list.get(i).getAvansRon());
-		rowField[9] = df.format(list.get(i).getAvansEur());
-		rowField[10] = df.format(list.get(i).getRestRon());
-		rowField[11] = df.format(list.get(i).getRestEur());
+                rowField[6] = df.format(list.get(i).getValoareRon());
+                rowField[7] = df.format(list.get(i).getValoareEur());
+                rowField[8] = df.format(list.get(i).getAvansRon());
+                rowField[9] = df.format(list.get(i).getAvansEur());
+                rowField[10] = df.format(list.get(i).getRestRon());
+                rowField[11] = df.format(list.get(i).getRestEur());
 
-		rows[rowIndex] = new ModelRow(rowField[0], rowField[1], rowField[2], rowField[3], rowField[4], rowField[5], rowField[6], rowField[7], rowField[8], rowField[9], rowField[10], rowField[11]);
-		++rowIndex;
-	    }
-	    mydata.setRows(rows);
-	    mytable.revalidate();
-	    mytable.repaint();
-	} else {
-	    mydata.setRows(rows);
-	    mytable.revalidate();
-	    mytable.repaint();
-	    JOptionPane.showMessageDialog(null, "Nu gasesc date care corespund criteriilor de cautare !", "Cautare ", JOptionPane.ERROR_MESSAGE);
+                rows[rowIndex] = new ModelRow(rowField[0], rowField[1], rowField[2], rowField[3], rowField[4], rowField[5], rowField[6], rowField[7], rowField[8], rowField[9], rowField[10], rowField[11]);
+                ++rowIndex;
+            }
+            mydata.setRows(rows);
+            mytable.revalidate();
+            mytable.repaint();
+        } else {
+            mydata.setRows(rows);
+            mytable.revalidate();
+            mytable.repaint();
+            JOptionPane.showMessageDialog(null, "Nu gasesc date care corespund criteriilor de cautare !", "Cautare ", JOptionPane.ERROR_MESSAGE);
 
-	}
+        }
     }
 
     private void createTable() {
-	IModelFieldGroup groups[] = new IModelFieldGroup[]{
-	    new ModelField("ID", "ID"), new ModelFieldGroup("CONTRACT", "CONTRACT").withChild(new ModelField("Nr.", "Nr."))
-	    .withChild(new ModelField("Data", "Data").withRowspan(2)), new ModelFieldGroup("TIP", "TIP").withChild(new ModelField("Pf.", "Pf.")).withChild(new ModelField("Pj.", "Pj.")),
-	    new ModelField("BENEFICIAR", "BENEFICIAR"), new ModelFieldGroup("VALOARE", "VALOARE").withChild(new ModelField("Ron1", "Ron")).withChild(new ModelField("Eur1", "Eur")),
-	    new ModelFieldGroup("AVANS", "AVANS").withChild(new ModelField("Ron2", "Ron")).withChild(new ModelField("Eur2", "Eur")),
-	    new ModelFieldGroup("REST", "REST").withChild(new ModelField("Ron3", "Ron")).withChild(new ModelField("Eur3", "Eur"))
-	};
+        IModelFieldGroup groups[] = new IModelFieldGroup[]{
+            new ModelField("ID", "ID"), new ModelFieldGroup("CONTRACT", "CONTRACT").withChild(new ModelField("Nr.", "Nr."))
+            .withChild(new ModelField("Data", "Data").withRowspan(2)), new ModelFieldGroup("TIP", "TIP").withChild(new ModelField("Pf.", "Pf.")).withChild(new ModelField("Pj.", "Pj.")),
+            new ModelField("BENEFICIAR", "BENEFICIAR"), new ModelFieldGroup("VALOARE", "VALOARE").withChild(new ModelField("Ron1", "Ron")).withChild(new ModelField("Eur1", "Eur")),
+            new ModelFieldGroup("AVANS", "AVANS").withChild(new ModelField("Ron2", "Ron")).withChild(new ModelField("Eur2", "Eur")),
+            new ModelFieldGroup("REST", "REST").withChild(new ModelField("Ron3", "Ron")).withChild(new ModelField("Eur3", "Eur"))
+        };
 
-	mydata = new ModelData(groups);
+        mydata = new ModelData(groups);
 
-	mytable = new JBroTable(mydata);
-	mytable.setDefaultEditor(Object.class, null);
-	mytable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	mytable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
-	mytable.setFont(new Font("Arial", Font.PLAIN, 12));
-	mytable.setRowHeight(25);
+        mytable = new JBroTable(mydata);
+        mytable.setDefaultEditor(Object.class, null);
+        mytable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        mytable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
+        mytable.setFont(new Font("Arial", Font.PLAIN, 12));
+        mytable.setRowHeight(25);
 
-	DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-	rightRenderer.setHorizontalAlignment(RIGHT);
-	DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-	leftRenderer.setHorizontalAlignment(LEFT);
-	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-	centerRenderer.setHorizontalAlignment(CENTER);
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(RIGHT);
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(LEFT);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(CENTER);
 
-	mytable.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-	mytable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-	mytable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-	mytable.getColumnModel().getColumn(5).setCellRenderer(leftRenderer);
-	mytable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
-	mytable.getColumnModel().getColumn(11).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        mytable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        mytable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        mytable.getColumnModel().getColumn(5).setCellRenderer(leftRenderer);
+        mytable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
+        mytable.getColumnModel().getColumn(11).setCellRenderer(rightRenderer);
 
-	mytable.getColumnModel().getColumn(0).setMaxWidth(50);
-	mytable.getColumnModel().getColumn(1).setMaxWidth(40);
-	mytable.getColumnModel().getColumn(2).setMaxWidth(80);
-	mytable.getColumnModel().getColumn(3).setMaxWidth(25);
-	mytable.getColumnModel().getColumn(4).setMaxWidth(25);
-	//mytable.getColumnModel().getColumn(5).setMaxWidth(650);
-	mytable.getColumnModel().getColumn(6).setMaxWidth(70);
-	mytable.getColumnModel().getColumn(7).setMaxWidth(70);
-	mytable.getColumnModel().getColumn(8).setMaxWidth(70);
-	mytable.getColumnModel().getColumn(9).setMaxWidth(70);
-	mytable.getColumnModel().getColumn(10).setMaxWidth(70);
-	mytable.getColumnModel().getColumn(11).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(0).setMaxWidth(50);
+        mytable.getColumnModel().getColumn(1).setMaxWidth(40);
+        mytable.getColumnModel().getColumn(2).setMaxWidth(80);
+        mytable.getColumnModel().getColumn(3).setMaxWidth(25);
+        mytable.getColumnModel().getColumn(4).setMaxWidth(25);
+        //mytable.getColumnModel().getColumn(5).setMaxWidth(650);
+        mytable.getColumnModel().getColumn(6).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(7).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(8).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(9).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(10).setMaxWidth(70);
+        mytable.getColumnModel().getColumn(11).setMaxWidth(70);
 
-	mytable.getColumn("Pj.").setCellRenderer(new DefaultTableCellRenderer() {
-	    final JCheckBox checkBox = new JCheckBox();
+        mytable.getColumn("Pj.").setCellRenderer(new DefaultTableCellRenderer() {
+            final JCheckBox checkBox = new JCheckBox();
 
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		checkBox.setSelected(((Boolean) value));
-		//checkBox.setSelected(true);
-		return checkBox;
-	    }
-	});
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                checkBox.setSelected(((Boolean) value));
+                //checkBox.setSelected(true);
+                return checkBox;
+            }
+        });
 
-	mytable.getColumn("Pf.").setCellRenderer(new DefaultTableCellRenderer() {
-	    final JCheckBox checkBox = new JCheckBox();
+        mytable.getColumn("Pf.").setCellRenderer(new DefaultTableCellRenderer() {
+            final JCheckBox checkBox = new JCheckBox();
 
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		checkBox.setSelected(((Boolean) value));
-		//checkBox.setSelected(true);
-		return checkBox;
-	    }
-	});
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                checkBox.setSelected(((Boolean) value));
+                //checkBox.setSelected(true);
+                return checkBox;
+            }
+        });
 
-	TableColumn tcol = mytable.getColumnModel().getColumn(0);
-	mytable.removeColumn(tcol);
+        TableColumn tcol = mytable.getColumnModel().getColumn(0);
+        mytable.removeColumn(tcol);
 
-	JScrollPane tableContainer = new JScrollPane(mytable);
-	jPanel4.add(tableContainer);
-	jPanel4.revalidate();
-	jPanel4.repaint();
+        JScrollPane tableContainer = new JScrollPane(mytable);
+        jPanel4.add(tableContainer);
+        jPanel4.revalidate();
+        jPanel4.repaint();
 
     }
 
-  
     public FormMain() {
-	initComponents();
-	createTable();
+        initComponents();
+        createTable();
         loadTableData();
-	bt_import.setEnabled(false);
-	bt_export.setEnabled(false);
-      //  this.getContentPane().setBackground(Color.white );
+        bt_import.setEnabled(false);
+        bt_export.setEnabled(false);
+        //  this.getContentPane().setBackground(Color.white );
 
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -466,30 +465,31 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btStergeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStergeActionPerformed
 
-	if (mytable.getSelectedRow() < 0) {  return; }
-	int row = mytable.getSelectedRow();
-	String myID = mytable.getModel().getValueAt(row, 0).toString();
-        String nrContract=mytable.getModel().getValueAt(row, 1).toString();
-	if (myID == null) {   return; 	}
-        
-         int response = JOptionPane.showConfirmDialog(null, "Doriti sa stergeti contractul cu nr #"+nrContract+ " ?", "Confirmare stergere contrcat",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-          if (response == JOptionPane.YES_OPTION) {
+        if (mytable.getSelectedRow() < 0) {
+            return;
+        }
+        int row = mytable.getSelectedRow();
+        String myID = mytable.getModel().getValueAt(row, 0).toString();
+        String nrContract = mytable.getModel().getValueAt(row, 1).toString();
+        if (myID.isEmpty()){
+            return;
+        }
 
-              //sterge ID-ul
-              
-              Database db=new Database();
-              db.deleteContractById(Integer.parseInt(myID));
-              JOptionPane.showMessageDialog(null, "Contractul cu nr #"+nrContract+" a fost sters !", "Informatii", JOptionPane.WARNING_MESSAGE);
-              loadTableData(); 
-           }   
-        
-        
-        
-        
+        int response = JOptionPane.showConfirmDialog(null, "Doriti sa stergeti contractul cu nr #" + nrContract + " ?", "Confirmare stergere contrcat", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+
+            //sterge ID-ul
+            Database db = new Database();
+            db.deleteContractById(Long.parseLong(myID));
+            JOptionPane.showMessageDialog(null, "Contractul cu nr #" + nrContract + " a fost sters !", "Informatii", JOptionPane.WARNING_MESSAGE);
+            loadTableData();
+        }
+
+
     }//GEN-LAST:event_btStergeActionPerformed
 
     private void btInchideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInchideActionPerformed
-	System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btInchideActionPerformed
 
     private void bt_importActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_importActionPerformed
@@ -497,98 +497,62 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btCautaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCautaActionPerformed
 
-	loadTableData();
+        loadTableData();
 
     }//GEN-LAST:event_btCautaActionPerformed
 
     private void btContractNouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContractNouActionPerformed
-	int myID = 0;
-	FormContract fc = new FormContract(myID);
-	fc.pack();
-	fc.setVisible(true);
-        
+        int myID = 0;
+        FormContract fc = new FormContract(myID);
+        fc.pack();
+        fc.setVisible(true);
+
         loadTableData();
     }//GEN-LAST:event_btContractNouActionPerformed
 
     private void btAnulareCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnulareCautareActionPerformed
-	tfCauta.setText("");
-	loadTableData();
-
-	
-      
+        tfCauta.setText("");
+        loadTableData();
     }//GEN-LAST:event_btAnulareCautareActionPerformed
 
     private void bt_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_exportActionPerformed
-       
-	// TODO add your handling code here:
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_exportActionPerformed
 
     private void btModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificaActionPerformed
 
-	if (mytable.getSelectedRow() < 0) { return; }
-	String myID = mytable.getModel().getValueAt(mytable.getSelectedRow(), 0).toString();
-	if (myID == null) {   return; 	}
+        if (mytable.getSelectedRow() < 0) {
+            return;
+        }
+        String myID = mytable.getModel().getValueAt(mytable.getSelectedRow(), 0).toString();
+        if (myID.isEmpty()) {
+            return;
+        }
 
-	System.out.println("Selected:" + myID);
-	FormContract fcontract = new FormContract(Integer.parseInt(myID));
-	fcontract.pack();
-	fcontract.setVisible(true);
-        loadTableData(); 
+        System.out.println("Selected:" + myID);
+        FormContract fcontract = new FormContract(Integer.parseInt(myID));
+        fcontract.pack();
+        fcontract.setVisible(true);
+        loadTableData();
 
     }//GEN-LAST:event_btModificaActionPerformed
 
+
     private void btTiparesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTiparesteActionPerformed
-        HashMap param = new HashMap();
-        param.put("contractDetalii", "NR. 12 din data de 11/12/2015");
-        
-        
-        String fDescriere ="Avand sediul in ONCESTI nr 460, judetul MARAMURES, inregistrat la registrul comertului sub J24/194 2008, avand cod unic de inregistrare RO 23179020, reprezentata prin domnul DRAGUS ION, avand functia de ADMINISTRATOR in calitate de FURNIZOR.";
-        param.put("furnizorNume", "SC. MARIANA-MARINEL SRL.");
-        param.put("furnizorDescriere", fDescriere );
-
-
-        String bDescriere ="Avand sediul in ONCESTI nr 460, judetul MARAMURES, inregistrat la registrul comertului sub J24/194 2008, avand cod unic de inregistrare RO 23179020, reprezentata prin domnul DRAGUS ION, avand functia de ADMINISTRATOR in calitate de FURNIZOR.";
-        param.put("beneficiarNume", "SC. MARIANA-MARINEL SRL.");
-        param.put("beneficiarDescriere", fDescriere );
-        
-        String profil,factura_seria,factura_nr,chitanta_serie,chitanta_nr,bon_de_casa,cont_bancar,trezorarie;        
-
-String obiectulContractului="1. Obiectul contractului il reprezinta furnizarea de prestari servicii cu TAMPLARIE din PVC cu profil OKMAN"+"\n"+
-        "2. Contractul este valabil numai pe baza de facturi seria SN nr 01112, achitata print";
-        
-                 
-//   String obiectulContractului="1. Obiectul contractului il reprezinta furnizarea de prestari servicii cu TAMPLARIE din PVC cu profil "+profil+chr(13)+
-//   "2. Contractul este valabil numai pe baza de facturi seria "+factura_seria+" nr "+factura_nr+", achitata print"+chr(13)+
-//   "   [-] Chitanta seria "+chitanta_serie+", nr "+chitanta_nr+chr(13)+
-//   "   [-] Bon de casa "+bon_de_casa+chr(13)+
-//   "   [-] Cont bancar "+cont_bancar+chr(13)+
-//   "   [-] Trezorarie"+trezorarie+chr(13)+
-//   "3. Contractul este prevazut in 2 exemplare."+chr(13)+
-//   "4. Obiectul contractului priveste confectionarea si montarea tamplariei conform dimensiunilor , deschiderilor si tipului de geam stabilite de comun acord cu beneficiarul la fata locului cu ocazia masuratorilor. "+chr(13)+
-//   "5. Executantul se obliga sa realizeze lucrarea iar beneficiarul sa plateasca pretul convenit de ambele parti la termenele si conditiile din contract."+chr(13)+
-//   "6. Lucrarea se determina in tablou de tamplarie ";
-
-                
-
-param.put("obiectulContractului", obiectulContractului );
-
-
-        try {
-                   
-            String source = System.getProperty("user.dir")+"\\report\\report1.jrxml";
-            JasperReport jc = JasperCompileManager.compileReport(source); //give your report.jrxml file path
-            JasperPrint print = JasperFillManager.fillReport(jc, param, new JREmptyDataSource());
-            //JasperViewer.viewReport(print);
-            JasperViewer.viewReport(print, false);
-            
-        } catch (JRException ex) {
-            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
+        if (mytable.getSelectedRow() < 0) {
+            return;
         }
-        
-        
-        
-            //Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
-        
+        int row = mytable.getSelectedRow();
+        String myID = mytable.getModel().getValueAt(row, 0).toString();
+
+        if (myID.isEmpty()) {
+            return;
+        }
+
+        new ImprimareContract(Long.parseLong(myID));
+
+
     }//GEN-LAST:event_btTiparesteActionPerformed
 
 

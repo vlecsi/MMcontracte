@@ -132,11 +132,11 @@ public class Database {
     
     
     
-    public Contract queryContractById(String id) {
+    public Contract queryContractById(long id) {
 
         Contract contract = new Contract();
         final String SQL;
-        SQL = "select * from clienti where id=" + id;
+        SQL = "SELECT * FROM clienti WHERE id=" +String.valueOf(id);
 
         try {
             connection = DriverManager.getConnection(url, username, password);
@@ -259,26 +259,11 @@ public class Database {
 
     public boolean updateContractById(long id, Contract contract) {
 
-        //Contract contract = new Contract();
-      //  final String SQL;
-      //  SQL = "update clienti where id=1";
-
         try {
-            
-            
             connection = DriverManager.getConnection(url, username, password);
             
-            
-            
-            
-            
-            
            //UPDATE  NR DATA TIP-PERSOANA
-           //nr_contract
-           //data_contract
-           //tip_contract        
-                   
-                   
+           //nr_contract : data_contract :tip_contract        
             PreparedStatement ps5 = connection.prepareStatement("UPDATE clienti SET nr_contract=?,data_contract=?, tip_contract=? WHERE id = ?");
             ps5.setLong(1, contract.getNrContract());
             Date myDate=contract.getDataContract();
