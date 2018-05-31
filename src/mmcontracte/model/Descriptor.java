@@ -43,4 +43,10 @@ public class Descriptor {
        return(host);
    }
    
+   public static String getPath(){
+       String path=System.getProperty("user.dir");
+       return path;
+   }
+   
+   
 }
