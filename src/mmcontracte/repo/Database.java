@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import mmcontracte.model.Contract;
+import mmcontracte.model.Descriptor;
 
 /**
  *
@@ -28,24 +30,26 @@ public class Database {
     private String password = "levi";
     private Connection connection = null;
 
+    public Database(){
+        this.url="jdbc:mysql://"+Descriptor.getDbHost()+":"+Descriptor.getDbPort()+"/"+Descriptor.getDbDatabase();
+        this.username= Descriptor.getDbUsername();
+        this.password=Descriptor.getDbPassword();
+    }    
+    
+    
     public boolean testConnection() {
-        System.out.println("Loading driver...");
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            System.out.println("Nu gasessc CLASA com.mysql.jdbc.Driver");
-            return (false);
+            JOptionPane.showMessageDialog(null, "Nu gasessc CLASA com.mysql.jdbc.Driver !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
-        System.out.println("Driver loaded!");
-        System.out.println("Connecting database...");
         try {
             connection = DriverManager.getConnection(url, username, password);
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return (false);
         }
-        System.out.println("Database connected!");
         return (true);
     }
     
@@ -59,7 +63,8 @@ public class Database {
                nrContract=rs.getLong("nr");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Database error !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
        return(nrContract);
     }
@@ -68,9 +73,6 @@ public class Database {
         ArrayList<Contract> contracte = null;
 
         final String SQL;
-
-        System.out.println("Cauta:" + cauta);
-
         if (cauta != null) {
             SQL = "select * from clienti where pj_denumire LIKE '%" + cauta + "%' or pf_denumire LIKE '%" + cauta + "%' order by data_contract desc";
         } else {
@@ -89,7 +91,6 @@ public class Database {
                 
                 Date dt= new Date();
                 if (rs.getString("data_contract") == null) {
-                    System.out.println("hiba");
                     contract.setDataContract(dt);
                 }else {  
                   contract.setDataContract(rs.getDate("data_contract"));
@@ -124,7 +125,6 @@ public class Database {
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQl HIBA!");
         }
         return (contracte);
     }
@@ -143,13 +143,24 @@ public class Database {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                System.out.println("keres contrcat :>  ");
                 contract.setId(rs.getInt("id"));
                 contract.setNrContract(rs.getInt("nr_contract"));
                 contract.setDataContract(rs.getDate("data_contract"));
                 contract.setTip_contract(rs.getString("tip_contract"));
 
+                String beneficiar = null;
+                if ("PERSOANA FIZICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pf_denumire");
+                }
+                if ("PERSOANA JURIDICA".equals(rs.getString("tip_contract"))) {
+                    beneficiar = rs.getString("pj_denumire");
+                }
+                if (beneficiar == null) {
+                    beneficiar = "";
+                }
+                contract.setBeneficiar(beneficiar);
 
+                
                 //setari persoana juridica
                 //-------------------------------------
                 contract.setPj_denumire(rs.getString("pj_denumire"));
@@ -232,10 +243,9 @@ public class Database {
             stmt.close();
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQl HIBA!");
+            JOptionPane.showMessageDialog(null, "Database error !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
-        System.out.println("keres contrcat :" + contract.getBeneficiar());
         return (contract);
     }
 
@@ -248,12 +258,9 @@ public class Database {
             ps.close();
           
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL HIBA!");
+            JOptionPane.showMessageDialog(null, "Database error !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
-        
-        
-
         return (true);
     }
 
@@ -350,14 +357,14 @@ public class Database {
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return(false);
+            JOptionPane.showMessageDialog(null, "Database error !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
 
         return (true);
     }
 
-    public long insertContract(Contract contract) {
+    public boolean insertContract(Contract contract) {
 
         try {
             
@@ -435,11 +442,11 @@ public class Database {
         
         
         }catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return(1);
+            JOptionPane.showMessageDialog(null, "Database error !", "MMContracte - Exceptie Fatala !", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
         
-        return (10);
+        return (true);
     }
 
 }

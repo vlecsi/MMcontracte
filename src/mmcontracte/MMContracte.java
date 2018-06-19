@@ -5,11 +5,8 @@
  */
 package mmcontracte;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import mmcontracte.view.FormLogin;
+import mmcontracte.model.Descriptor;
 
 /**
  *
@@ -18,20 +15,11 @@ import mmcontracte.view.FormLogin;
 public class MMContracte {
 
     public static void main(String[] args) {
-//	try {
-//	    UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-//	    //UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
-//            //UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-//	} catch (ClassNotFoundException ex) {
-//	    Logger.getLogger(MMContracte.class.getName()).log(Level.SEVERE, null, ex);
-//	} catch (InstantiationException ex) {
-//	    Logger.getLogger(MMContracte.class.getName()).log(Level.SEVERE, null, ex);
-//	} catch (IllegalAccessException ex) {
-//	    Logger.getLogger(MMContracte.class.getName()).log(Level.SEVERE, null, ex);
-//	} catch (UnsupportedLookAndFeelException ex) {
-//	    Logger.getLogger(MMContracte.class.getName()).log(Level.SEVERE, null, ex);
-//	}
 	org.apache.log4j.BasicConfigurator.configure();
+        org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.INFO);
+        
+        // Load Config File
+        new Descriptor();
 
 	FormLogin flogin = new FormLogin(null, false);
 	flogin.setVisible(true);

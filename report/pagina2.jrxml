@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dde7002c-c681-4f94-9bfd-a7e4a9299d29">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="termenulDeExecutie" class="java.lang.String"/>
+	<parameter name="obligatiiBeneficiar" class="java.lang.String"/>
+	<parameter name="obligatiiFurnizor" class="java.lang.String"/>
+	<parameter name="garantie" class="java.lang.String"/>
+	<parameter name="logoSalamander" class="Object" isForPrompting="false"/>
+	<parameter name="logoMm" class="Object" isForPrompting="false"/>
+	<parameter name="logoStampila" class="Object" isForPrompting="false"/>
+	<field name="field1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="150">
+			<image>
+				<reportElement x="13" y="4" width="105" height="94" uuid="130efcae-a8e4-412c-a53d-7aab23a8c038"/>
+				<imageExpression><![CDATA[$P{logoSalamander}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement mode="Opaque" x="0" y="111" width="555" height="1" forecolor="#000000" uuid="3d5ed419-e27c-4df3-84cb-fc97028f04e9"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="96" width="555" height="20" uuid="e3ed80c9-6f6c-4106-8f9a-e21fdebfd42f"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Tel.: 0740645401, 0763663097 Fax.: 0262-348519]]></text>
+			</staticText>
+			<image>
+				<reportElement x="452" y="1" width="102" height="85" uuid="785c6adb-a451-4a73-af56-644c5117057c"/>
+				<imageExpression><![CDATA[$P{logoMm}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="131" y="51" width="303" height="20" uuid="e2f58a57-0e30-44bb-9e91-9f63116a4792"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CU GEAM TERMOPAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="5a148ad3-ea68-49b0-980b-d7caba231302"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SC MARIANA-MARINEL SRL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="34" width="303" height="17" uuid="03db405f-9e2b-41a3-b6f0-7937b9d6db95"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEME DE FERESTRE, USI DIN PVC SI ALUMINIU ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="76" width="303" height="20" uuid="18ea84a3-55d6-4926-b5e6-1bd298626a00"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Oncesti Nr. 460, Jud. Maramures]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="652">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="18" y="542" width="100" height="76" uuid="c10e3091-3493-47b8-961c-791faddedba3"/>
+				<imageExpression><![CDATA[$P{logoStampila}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-1" y="-18" width="279" height="20" uuid="1a12921a-34a7-4fd9-af37-957daac9de33"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ART. IV TERMENUL DE EXECUTIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="88" width="298" height="20" uuid="6845d52d-edb2-4fd4-8a50-c8505451c12f"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ART. V OBLIGATIILE BENEFICIARULUI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="322" width="298" height="20" uuid="c03f8926-4bc4-4f60-b713-330b3d5ec3e5"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ART. VII GARANTIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="2" width="554" height="86" uuid="c5fe571a-41be-4d7f-a134-141b50c782f6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{termenulDeExecutie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="241" width="555" height="81" uuid="af4aa6d0-4e43-4c93-a66e-403e7e243a31"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{obligatiiFurnizor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="342" width="555" height="179" uuid="c8908d10-b5a1-4063-9dd3-458cb82c4306"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{garantie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="108" width="554" height="91" uuid="a64161db-2f40-43f1-aaa2-6c0a8229cfbf"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{obligatiiBeneficiar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="221" width="298" height="20" uuid="c7c3f0ba-2819-4de7-afa2-0b3d728f21df"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ART. VI OBLIGATIILE FURNIZORULUI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="536" width="100" height="20" uuid="f70f40dc-dcc0-4dc7-b778-7341917d797a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXECUTANT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="536" width="100" height="20" uuid="9b2d1df8-7be8-4c34-84ee-c4941ce2d2af"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BENEFICIAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="545" width="100" height="20" uuid="d90283c6-079a-48fe-bfe6-66aad6428d0c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[(semnatura/stampila)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="546" width="100" height="20" uuid="156d9ab5-54ff-4d48-bdb1-882ea8afa99e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[(semnatura/stampila)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="632" width="84" height="20" uuid="6e6913c1-5d46-4abb-8cdd-02a0f9e7e938"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pagina: 2/2]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>

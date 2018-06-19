@@ -69,8 +69,6 @@ public class FormMain extends javax.swing.JFrame {
 
         //dm.setRowCount(0);
         ArrayList<Contract> list = data.queryContracte(tfCauta.getText());
-        System.out.println(" LEFUTOTTAM !!!!!!!!!!!!!!!!");
-
         rows = new ModelRow[list.size()];
         if (!list.isEmpty()) {
 
@@ -183,7 +181,6 @@ public class FormMain extends javax.swing.JFrame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 checkBox.setSelected(((Boolean) value));
-                //checkBox.setSelected(true);
                 return checkBox;
             }
         });
@@ -204,7 +201,6 @@ public class FormMain extends javax.swing.JFrame {
         loadTableData();
         bt_import.setEnabled(false);
         bt_export.setEnabled(false);
-        //  this.getContentPane().setBackground(Color.white );
 
     }
 
@@ -530,7 +526,6 @@ public class FormMain extends javax.swing.JFrame {
             return;
         }
 
-        System.out.println("Selected:" + myID);
         FormContract fcontract = new FormContract(Integer.parseInt(myID));
         fcontract.pack();
         fcontract.setVisible(true);
@@ -551,8 +546,6 @@ public class FormMain extends javax.swing.JFrame {
         }
 
         new ImprimareContract(Long.parseLong(myID));
-
-
     }//GEN-LAST:event_btTiparesteActionPerformed
 
 

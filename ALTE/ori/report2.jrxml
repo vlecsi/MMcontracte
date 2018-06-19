@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dde7002c-c681-4f94-9bfd-a7e4a9299d29">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="25"/>
+	<property name="ireport.x" value="83"/>
+	<property name="ireport.y" value="710"/>
 	<parameter name="termenulDeExecutie" class="java.lang.String"/>
 	<parameter name="obligatiiBeneficiar" class="java.lang.String"/>
 	<parameter name="obligatiiFurnizor" class="java.lang.String"/>
@@ -109,6 +109,10 @@
 				</textElement>
 				<text><![CDATA[Art. VI OBLIGATIILE FURNIZORULUI]]></text>
 			</staticText>
+			<image hAlign="Center">
+				<reportElement x="445" y="526" width="76" height="74" uuid="c4956271-5702-4810-8c6a-c5d3c3d03134"/>
+				<imageExpression><![CDATA["stampila-refacut.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 </jasperReport>

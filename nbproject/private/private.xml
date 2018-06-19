@@ -6,14 +6,16 @@
         <group name="Group 20180218-10:41:17">
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/src/mmcontracte/FormMain.java</file>
         </group>
-        <group>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/repo/Database.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/Contract.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormMain.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormContract.java</file>
-        </group>
         <group name="LAST-project">
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/MMcontracte/src/mmcontracte/view/FormMain.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/ImprimareContract.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/repo/Database.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/Descriptor.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormLogin.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormMain.java</file>
+            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/MMContracte.java</file>
         </group>
     </open-files>
 </project-private>

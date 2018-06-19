@@ -1,14 +1,9 @@
 package mmcontracte.view;
 
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
-import mmcontracte.view.FormMain;
 import mmcontracte.repo.Database;
-import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import mmcontracte.model.Descriptor;
 
@@ -33,7 +28,8 @@ public class FormLogin extends javax.swing.JDialog {
 	super(parent, modal);
 	initComponents();
 	setForm();
-	bt_login.requestFocus();
+	//bt_login.requestFocus();
+        jpass.requestFocus();
     }
 
     private void setForm() {
@@ -50,10 +46,8 @@ public class FormLogin extends javax.swing.JDialog {
 
 	String myDataString = String.format("%s %d/%d/%d - %s %d:%d", "Data:", day, month, year, "Ora:", hour, minute);
 	date.setText(myDataString);
-
-	Descriptor descriptor=Descriptor.getInstance();
-	ver.setText(descriptor.getVersionText());
-	this.setTitle(descriptor.getProgramTitel());
+	ver.setText(Descriptor.getVersionText());
+	this.setTitle(Descriptor.getProgramTitel());
     }
 
     /**
@@ -72,10 +66,10 @@ public class FormLogin extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        juser = new javax.swing.JTextField();
         bt_login = new javax.swing.JButton();
         bt_cancel = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jpass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MM Contracte Ver. 10.2.2.1");
@@ -161,8 +155,8 @@ public class FormLogin extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Parola:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.setText("Administrator");
+        juser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        juser.setText("Administrator");
 
         bt_login.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bt_login.setText("Login");
@@ -180,7 +174,7 @@ public class FormLogin extends javax.swing.JDialog {
             }
         });
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jpass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -197,8 +191,8 @@ public class FormLogin extends javax.swing.JDialog {
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1)))
+                            .addComponent(juser)
+                            .addComponent(jpass)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,10 +205,10 @@ public class FormLogin extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(juser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -261,10 +255,18 @@ public class FormLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_bt_cancelActionPerformed
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-	Database database = new Database();
+        String PasswordTyped = new String(jpass.getPassword());
+        
+        if (juser.getText().equals("Administrator") && PasswordTyped.equals("rosu5")){
+        } else {
+            JOptionPane.showMessageDialog(null, "Utilizator/Parola gresit!", "Erroare AccesareProgram !", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+                
+        
+        Database database = new Database();
 	if (database.testConnection() == false) {
-	    JOptionPane.showMessageDialog(null, "Utilizator/Parola grestit sau Serverul este Inaccesibil !", "Erroare Connectare Baza de Date !", JOptionPane.ERROR_MESSAGE);
-	    System.out.println("Nu Ma pot conecta !!!");
+	    JOptionPane.showMessageDialog(null, "Utilizator/Parola gresit sau Serverul este Inaccesibil !", "Erroare Connectare Baza de Date !", JOptionPane.ERROR_MESSAGE);
 	    return;
 	}
 	this.setVisible(false);
@@ -272,8 +274,8 @@ public class FormLogin extends javax.swing.JDialog {
 	Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
       	fmain.setSize(d.width, d.height-30);//<---take 30 off the height
         fmain.setLocationRelativeTo(null);
-	Descriptor descriptor=Descriptor.getInstance();
-	fmain.setTitle(descriptor.getProgramTitel());
+	//Descriptor descriptor=Descriptor.getInstance();
+	fmain.setTitle(Descriptor.getProgramTitel());
 	fmain.setVisible(true);
 
     }//GEN-LAST:event_bt_loginActionPerformed
@@ -292,8 +294,8 @@ public class FormLogin extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jpass;
+    private javax.swing.JTextField juser;
     private javax.swing.JLabel ver;
     // End of variables declaration//GEN-END:variables
 }
