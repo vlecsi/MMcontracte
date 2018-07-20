@@ -9,13 +9,6 @@
         <group name="LAST-project">
             <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMContracte/MMcontracte/src/mmcontracte/view/FormMain.java</file>
         </group>
-        <group>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/ImprimareContract.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/repo/Database.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/model/Descriptor.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormLogin.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/view/FormMain.java</file>
-            <file>file:/C:/Users/Levi/Documents/NetBeansProjects/MMcontracte/src/mmcontracte/MMContracte.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
